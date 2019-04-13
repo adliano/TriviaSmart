@@ -1,4 +1,5 @@
 // Global Variables \\
+var questionKeys;
 // "https://media.giphy.com/media/Ax0kmy0IEqq9W/giphy.gif";
 //"https://media.giphy.com/media/BPZenX37AtXyw/giphy.gif";
 // Save interval ID to be able to stop when need it
@@ -9,10 +10,28 @@
 /******************************************************************************/
 // Function to get 10 questions from API and save on JSON object
 // Get questions from API using promisses
+var queryUrl= "https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple";
 // Save the object
-//
-// Array with Questions keys
+fetch(queryUrl)
+//translate into json
+    .then((response) => response.json()) 
+// do something with the promise
+    .then((result)=> {
+        console.dir(result.results);
+        questionKeys=result.results;
+        arrayGrab();
+    })
 // Enable Start Button after data ia loaded
+    .then(()=> startButtonClick() )
+    .then(()=> updateView());
+    
+// Array with Questions keys
+function arrayGrab(){
+var arrayKey  = Object.keys(questionKeys);
+console.dir(arrayKey);
+}
+
+
 // Update view after data arrive
 
 
@@ -115,6 +134,9 @@
 // this function will return the correct_answer 
 // to compare with user answer
 // function updateView() {
+    function updateView(){
+        console.log("view has been updated duuuude");
+    }
     // Check for Game Over
     // stop timer
     // update view
@@ -141,6 +163,9 @@
 /* * * * * * * * * * * * * * onStartButtonClick() * * * * * * * * * * * * * * */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // callback used on start button event listener
+function startButtonClick(){
+    console.log("button clickeddddd son");
+};
 //function onStartButtonClick() {
     // Get start button element 
     // Enable the start button
