@@ -181,6 +181,7 @@ function startButtonClick(){
         console.log("button clickeddddd son");
         //get rid of container holding button 
         mkInvisible("#containerStart");
+        mkVisible("#questionsContainer");
     });
 };  
     
