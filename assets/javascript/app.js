@@ -56,13 +56,18 @@ console.dir(arrayKey);
 /* * * * * * * * * * * * * * * mkVisible() * * * * * * * * * * * * * * * * * */
 /*****************************************************************************/
 // function used to make element visible, argument for function will be ids or classes
+function mkVisible(selector){
+    document.querySelector(selector).classList.remove("invisible");
+}
 
 
 /*******************************************************************************/
 /* * * * * * * * * * * * * * * mkInvisible() * * * * * * * * * * * * * * * * * */
 /*******************************************************************************/
 // function used to make element invisible, argument for function will be ids or classes
-
+function mkInvisible(selector){
+    document.querySelector(selector).classList.add("invisible");
+}
 
 /*******************************************************************************/
 /* * * * * * * * * * * * * * * * * setText() * * * * * * * * * * * * * * * * * */
