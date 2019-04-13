@@ -168,15 +168,22 @@ function mkInvisible(selector){
 /* * * * * * * * * * * * * * onStartButtonClick() * * * * * * * * * * * * * * */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // callback used on start button event listener
-function startButtonClick(){
-    console.log("button clickeddddd son");
-};
+
 //function onStartButtonClick() {
-    // Get start button element 
-    // Enable the start button
-    // Add the event listner
-    // remove Start button from view 
-    // Add the Question container on view
+function startButtonClick(){
+// Get start button element 
+    var btn = document.querySelector("#startButton");
+// Enable the start button
+    btn.disabled=false;
+// Add the event listner
+    btn.addEventListener("click",function(){
+//console log if button was clicked        
+        console.log("button clickeddddd son");
+        //get rid of container holding button 
+        mkInvisible("#containerStart");
+    });
+};  
+    
 //}
 
 
