@@ -3,37 +3,36 @@
 /* font-family: 'Luckiest Guy', cursive; */
 /* font-family: 'Special Elite', cursive; */
 
-/*
+
 body {
-    background-image: 
-    font-family: 
+    background-image: url('../images/background.jpg');
+    /* font-family: */
 }
 
-button {
+/* button {
     font-family:
-    
-}
 
-h3 {
-    font-family: 
-}
+} */
 
-#triviaHeader {
-    font-family: 
-    font-size: 
-}
+/* h3 {
+    font-family:
+} */
 
-.bg-container {
-    min-height: 
-    min-width: 
-    background-color:rgba(255,255, 0, 0.75);
+/* #triviaHeader {
+    font-family:
+        font-size:
+} */
 
-}
+/* .bg-container {
+    min-height:
+        min-width: background-color:rgba(255, 255, 0, 0.75);
 
-.btn {
-    font-size: 
-}
+} */
 
-.invisible{
+/* .btn {
+    font-size:
+} */
+
+.invisible {
+    display: none;
 }
-*/
