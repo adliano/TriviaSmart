@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-  <title>Trivia Game</title>
+  <title>Trivia Smart</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,6 +19,16 @@
 <!--         Container with the strat Button           -->
 <!-- ------------------------------------------------- -->
 <!-- MAKE INVISIBLE AFTER USER ENTER HIS USER NAME AND PRESS START BUTTON -->
+<div id="containerStart" class="container my-5 bg-container">
+  <div class="row">
+    <div class="col text-center">
+      <h1 id="triviaHeader" class="font-weight-bolder text-primary my-5 py-5">Totally Trivial Trivia</h1>
+
+      <!-- Button Disable by default and it will become enable after data is loaded  -->
+      <button id="startButton" class="btn btn-outline-primary px-5 my-5" disabled>Start</button>
+    </div>
+  </div>
+</div>
 
 <body>
   <!-- Button Disable by default and it will become enable after data is loaded  -->
@@ -37,8 +47,8 @@
   <!-- Div container to hold the GIF to be display -->
 
 
-<!-- Javascript -->
-<script src="assets/javascript/app.js"></script>
+  <!-- Javascript -->
+  <script src="assets/javascript/app.js"></script>
 
 </body>
 
