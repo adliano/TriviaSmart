@@ -2,27 +2,27 @@
 ## A Smart Way To Play
 
 ### Team Member:
- ..* 1.Adliano Aalves
- ..* 2.Jayant Rai
- ..* 3.Luis RivasProject 
+ * 1.Adliano Aalves
+ * 2.Jayant Rai
+ * 3.Luis RivasProject 
 
 
  ### API to be Used:
- ..* Trivia questions - https://opentdb.com/Location 
- ..* Giphy - https://api.giphy.com
+ * Trivia questions - https://opentdb.com/Location 
+ * Giphy - https://api.giphy.com
 
  ### Lib used : 
- ..* Pushy Buttons - https://github.com/iRaul/pushy-buttons
+ * Pushy Buttons - https://github.com/iRaul/pushy-buttons
  <!-- Services- ​https://rapidapi.com/montanaflynn/api/geocode-location-lookupTask  -->
 
  ### Services :
- ..* Firebase
- ..* Google Maps (If time permits)
+ * Firebase
+ * Google Maps (If time permits)
  
  ### Breakdown:
- ..* Adliano- Organization, Project Management, Testing.
- ..* Jayant- Front / Back End.
- ..* Luis- Back End.
+ * Adliano- Organization, Project Management, Testing.
+ * Jayant- Front / Back End.
+ * Luis- Back End.
 
 #### Splash Screen where User will Press start button to start the game
 if enough time we will add some animation while data from API its loading
