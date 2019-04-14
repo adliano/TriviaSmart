@@ -1,18 +1,56 @@
 /* Google fontes used */
-/* font-family: 'Baloo Chettan', cursive; */
-/* font-family: 'Luckiest Guy', cursive; */
-/* font-family: 'Special Elite', cursive; */
 
+/* 
+font-family: 'Vesper Libre', serif;
+font-family: 'Bungee Shade', cursive;
+font-family: 'Fredoka One', cursive;
+font-family: 'Luckiest Guy', cursive; 
+
+
+colors
+https://colorhunt.co/palette/142059
+
+#ffc15e rgb(255, 193, 94, 0.75)
+#8158fc
+#692db7
+#34314f
+
+*/
 
 body {
     background-image: url('../images/background.jpg');
-    /* font-family: */
+    background-size: cover;
+    font-family: 'Vesper Libre', serif;
 }
 
-/* button {
-    font-family:
+button, .btn {
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 2rem;
+    background-color: #692db7;
+}
 
-} */
+/* h1 */
+
+.startHeader {
+    position: relative;
+    font-size: 5rem;
+    font-family: 'Luckiest Guy', cursive;
+    color: #34314f;
+}
+
+.startHeader span {
+    position: absolute;
+    font-size: 5rem;
+    font-family: 'Luckiest Guy', cursive;
+    color: #692db7;
+    -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 1)), color-stop(50%, rgba(0, 0, 0, .5)), to(rgba(0, 0, 0, 1)));
+}
+
+.startHeader:after {
+    content: 'Smart Trivial Trivia';
+    color: #000000;
+    text-shadow: 0 2px 0 red;
+}
 
 /* h3 {
     font-family:
@@ -26,7 +64,7 @@ body {
 .bg-container {
     min-height: 250px;
     min-width: 250px;
-    background-color: rgba(255, 255, 0, 0.75);
+    background-color: rgb(255, 193, 94, 0.75);
 }
 
 /* .btn {
@@ -36,3 +74,7 @@ body {
 .invisible {
     display: none;
 }
+
+/* #triviaHeader {
+    color: #f25d9c;
+} */
