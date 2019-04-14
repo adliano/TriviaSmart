@@ -5,6 +5,16 @@ var questionKeys;
 // Save interval ID to be able to stop when need it
 // Time given to user to answer 30 seconds
 
+///////// Location API URL \\\\\\\\\ Adriano Alves Apr 14 2019
+const LOCATION_API_URL = `http://open.mapquestapi.com/geocoding/v1/reverse?`
+//
+let locationApiParams = {
+    key: `PnXATGIJA1knu3AIiLfjICBBfLexttAQ`,
+    outFormat: `json`,
+    location: ``,
+}
+///////// end of Location API URL \\\\\\\
+
 /******************************************************************************/
 /* * * * * * * * * * * * * * * * getQuestions() * * * * * * * * * * * * * * * */
 /******************************************************************************/
@@ -188,6 +198,51 @@ function startButtonClick(){
 //}
 
 
+/* ********************************************************************** */
+/* * * * * * * * * * * * * * getGeoLocation() * * * * * * * * * * * * * * */
+/* ********************************************************************** */
+// Adriano Apr 14 2019
+// get user geolocation 
+function getGeoLocation() {
+    // if geolocation is available in browser
+    if (navigator.geolocation) {
+        // call getCity with geo possition
+        navigator.geolocation.getCurrentPosition(getCity);
+    }
+}
+/* ********************************************************************* */
+/* * * * * * * * * * * * * * * * getCity() * * * * * * * * * * * * * * * */
+/* ********************************************************************* */
+// Adriano Apr 14 2019
+function getCity(userPosition) {
+    // get latitude
+    let lat = userPosition.coords.latitude;
+    // get longitude
+    let lng = userPosition.coords.longitude;
+    // add location to apiParams
+    locationApiParams.location = `${lat},${lng}`
+    // create the url parameters
+    let searchParams = new URLSearchParams(locationApiParams);
+    // send request to API  
+    fetch(`${LOCATION_API_URL}${searchParams}`)
+        // get the api response and parse to JSON
+        .then((apiResponse) => apiResponse.json())
+        // get the results (by API docs its a array)
+        .then((jsonObj) => jsonObj.results[0])
+        // get the locations (by API docs its a array)
+        .then((result) => result.locations[0])
+        // set city and state
+        .then((location) => {
+            let currentCity = `${location.adminArea5}, ${location.adminArea3}`;
+            console.log(currentCity);
+            
+            // TODO: use function setText(selector)
+            document.querySelector('.footer h6').innerHTML = currentCity;
+            // document.querySelector('#map').setAttribute(`src`, location.mapUrl);
+        });
+}
+
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /* * * * * * * * * * * * * * onAnswerClick() * * * * * * * * * * * * * * * */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -209,6 +264,8 @@ function startButtonClick(){
     // upload questions
 //}
 
+/////////////////////////////////////////////////////////////////////////////////////
+getGeoLocation();
 //document.querySelector("#reloadButton").addEventListener("click", onReloadClick);
 
 // Add the onclick listener to answers buttons
