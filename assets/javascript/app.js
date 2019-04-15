@@ -1,8 +1,9 @@
 // Global Variables \\
 var questionKeys;
-// "https://media.giphy.com/media/Ax0kmy0IEqq9W/giphy.gif";
-//"https://media.giphy.com/media/BPZenX37AtXyw/giphy.gif";
+// variable to save the user city's current score (Adriano Apr 15 2019)
+let userCityScore;
 // Save interval ID to be able to stop when need it
+
 // Time given to user to answer 30 seconds
 
 ///////// Location API URL \\\\\\\\\ Adriano Alves Apr 14 2019
@@ -13,32 +14,46 @@ let locationApiParams = {
     outFormat: `json`,
     location: ``,
 }
-///////// end of Location API URL \\\\\\\
+///////////////////\\\\\\\\\\\\\\\\\\\\\
+
+///////// Initialize Firebase \\\\\\\\\ Adriano Alves Apr 15 2019
+let config = {
+    apiKey: "AIzaSyBXZX6svzyC6NN6ZQiBKsP5VqZjnH07U_Y",
+    authDomain: "triviasmart-c21fb.firebaseapp.com",
+    databaseURL: "https://triviasmart-c21fb.firebaseio.com",
+    projectId: "triviasmart-c21fb",
+    storageBucket: "triviasmart-c21fb.appspot.com",
+    messagingSenderId: "142508179498"
+};
+firebase.initializeApp(config);
+let myDatabase = firebase.database();
+///////////////////\\\\\\\\\\\\\\\\\\\\\
+
 
 /******************************************************************************/
 /* * * * * * * * * * * * * * * * getQuestions() * * * * * * * * * * * * * * * */
 /******************************************************************************/
 // Function to get 10 questions from API and save on JSON object
 // Get questions from API using promisses
-var queryUrl= "https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple";
+var queryUrl = "https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple";
 // Save the object
 fetch(queryUrl)
-//translate into json
-    .then((response) => response.json()) 
-// do something with the promise
-    .then((result)=> {
+    //translate into json
+    .then((response) => response.json())
+    // do something with the promise
+    .then((result) => {
         console.dir(result.results);
-        questionKeys=result.results;
+        questionKeys = result.results;
         arrayGrab();
     })
-// Enable Start Button after data ia loaded
-    .then(()=> startButtonClick() )
-    .then(()=> updateView());
-    
+    // Enable Start Button after data ia loaded
+    .then(() => startButtonClick())
+    .then(() => updateView());
+
 // Array with Questions keys
-function arrayGrab(){
-var arrayKey  = Object.keys(questionKeys);
-console.dir(arrayKey);
+function arrayGrab() {
+    var arrayKey = Object.keys(questionKeys);
+    console.dir(arrayKey);
 }
 
 
@@ -66,7 +81,7 @@ console.dir(arrayKey);
 /* * * * * * * * * * * * * * * mkVisible() * * * * * * * * * * * * * * * * * */
 /*****************************************************************************/
 // function used to make element visible, argument for function will be ids or classes
-function mkVisible(selector){
+function mkVisible(selector) {
     document.querySelector(selector).classList.remove("invisible");
 }
 
@@ -75,7 +90,7 @@ function mkVisible(selector){
 /* * * * * * * * * * * * * * * mkInvisible() * * * * * * * * * * * * * * * * * */
 /*******************************************************************************/
 // function used to make element invisible, argument for function will be ids or classes
-function mkInvisible(selector){
+function mkInvisible(selector) {
     document.querySelector(selector).classList.add("invisible");
 }
 
@@ -111,11 +126,11 @@ function mkInvisible(selector){
 /* * * * * * * * * * * * * * * * updateTimer() * * * * * * * * * * * * * * * * */
 /*******************************************************************************/
 // function updateTimer() {
-    // Set Counter to always show two digits
-    // Display Updated conter
-    // Stop if counter reachs zero
-    // Make it red color if counter bellow 10
-    // Update Counter
+// Set Counter to always show two digits
+// Display Updated conter
+// Stop if counter reachs zero
+// Make it red color if counter bellow 10
+// Update Counter
 //}
 
 
@@ -123,21 +138,21 @@ function mkInvisible(selector){
 /* * * * * * * * * * * * * * * showAnwser() * * * * * * * * * * * * * * * */
 /***************************************************************************/
 // function showAnwser(isCorrect) {
-    // Let user see the result for 5 seconds
-    // remove timerHearder, question and btnColumn from view
-    //display displayGIF
-    // Get Element of img, there is only one element child so we most use [0]
-    // Check if user answer correct,wrong or timeout
-    // User answered correct
-    // Update toatlWin
-    // set text for answer status
-    // add the src to img
-    // User Missed
-    // update totalLost
-    // set text for answer status
-    // Not Answer, Time out
-    // Update notAnswered counter
-    // set text for answer status
+// Let user see the result for 5 seconds
+// remove timerHearder, question and btnColumn from view
+//display displayGIF
+// Get Element of img, there is only one element child so we most use [0]
+// Check if user answer correct,wrong or timeout
+// User answered correct
+// Update toatlWin
+// set text for answer status
+// add the src to img
+// User Missed
+// update totalLost
+// set text for answer status
+// Not Answer, Time out
+// Update notAnswered counter
+// set text for answer status
 //}
 //
 
@@ -149,28 +164,28 @@ function mkInvisible(selector){
 // this function will return the correct_answer 
 // to compare with user answer
 // function updateView() {
-    function updateView(){
-        console.log("view has been updated duuuude");
-    }
-    // Check for Game Over
-    // stop timer
-    // update view
-    // Get a rand key ussing splice (splice return a Array)
-    // Get randon object from questionsObjects using splice to void erpetitive questions
-    // Get string question
-    // Set the question
-    // Get the correct_answer (it will be the return of this function)
-    // Add correct_answer to incorrect_answers array to shuffle
-    // Get all answer buttons
-    // Random place correct and incorrect answer on the buttons
-    // Get Correct answer gif url
-    // Get wronganswer git url
-    // remove gif animation displayGIF
-    // display timerHearder, question and btnColumn
-    // Stop timer
-    // Reset counter
-    // timerCounter = 30;
-    //Start timer and update each 1 second
+function updateView() {
+    console.log("view has been updated duuuude");
+}
+// Check for Game Over
+// stop timer
+// update view
+// Get a rand key ussing splice (splice return a Array)
+// Get randon object from questionsObjects using splice to void erpetitive questions
+// Get string question
+// Set the question
+// Get the correct_answer (it will be the return of this function)
+// Add correct_answer to incorrect_answers array to shuffle
+// Get all answer buttons
+// Random place correct and incorrect answer on the buttons
+// Get Correct answer gif url
+// Get wronganswer git url
+// remove gif animation displayGIF
+// display timerHearder, question and btnColumn
+// Stop timer
+// Reset counter
+// timerCounter = 30;
+//Start timer and update each 1 second
 //}
 
 
@@ -180,21 +195,21 @@ function mkInvisible(selector){
 // callback used on start button event listener
 
 //function onStartButtonClick() {
-function startButtonClick(){
-// Get start button element 
+function startButtonClick() {
+    // Get start button element 
     var btn = document.querySelector("#startButton");
-// Enable the start button
-    btn.disabled=false;
-// Add the event listner
-    btn.addEventListener("click",function(){
-//console log if button was clicked        
+    // Enable the start button
+    btn.disabled = false;
+    // Add the event listner
+    btn.addEventListener("click", function () {
+        //console log if button was clicked        
         console.log("button clickeddddd son");
         //get rid of container holding button 
         mkInvisible("#containerStart");
         mkVisible("#questionsContainer");
     });
-};  
-    
+};
+
 //}
 
 
@@ -234,12 +249,36 @@ function getCity(userPosition) {
         // set city and state
         .then((location) => {
             let currentCity = `${location.adminArea5}, ${location.adminArea3}`;
-            console.log(currentCity);
-            
+            // get user postal code
+            userPostalCode = location.postalCode;
+            // get users country
+            userCountry = location.adminArea1;
+            // Get current city's score
+            getCurrentCityScore(userCountry, userPostalCode);
+
             // TODO: use function setText(selector)
             document.querySelector('.footer h6').innerHTML = currentCity;
             // document.querySelector('#map').setAttribute(`src`, location.mapUrl);
         });
+}
+/* ********************************************************************* */
+/* * * * * * * * * * * * * getCurrentCityScore() * * * * * * * * * * * * */
+/* ********************************************************************* */
+// Adriano Apr 15 2019
+// Function to get city score, the score will be saved, 
+// updated the score and update firebase
+function getCurrentCityScore(country, zipCode) {
+    // get firbase snapshot  
+    myDatabase.ref(`${country}/`).on(`value`, function (snapshot) {
+        // and get the score on database for current city
+        userCityScore = snapshot.val()[zipCode].score;
+        // debugging
+        console.log(`%cuserCityScore : ${userCityScore}`, `background-color: cyan;`);
+    },
+    // check for error 
+    function (error) {
+        console.log("Error: " + error.code);
+    });
 }
 
 
@@ -248,8 +287,8 @@ function getCity(userPosition) {
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // Method to handle event wen user click in any answer
 // function onAnswerClick(event) {
-    // Get text from clicked button
-    // check answer status
+// Get text from clicked button
+// check answer status
 //}
 
 
@@ -258,10 +297,10 @@ function getCity(userPosition) {
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // Method to handle the game reload
 // function onReloadClick(event) {
-    // update view
-    // reset initial variables that hold scores
-    // Get start button element 
-    // upload questions
+// update view
+// reset initial variables that hold scores
+// Get start button element 
+// upload questions
 //}
 
 /////////////////////////////////////////////////////////////////////////////////////
