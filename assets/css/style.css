@@ -67,6 +67,16 @@ button, .btn {
     background-color: rgb(255, 193, 94, 0.75);
 }
 
+/* Style for footer that will show current city Adriano Apr 14 2019 */
+.footer h6{
+    position: fixed;
+    right: 10px;
+    bottom: 2px;
+    width: 25%;
+    font-size: 2rem;
+    text-align: center;
+}
+
 /* .btn {
     font-size:
 } */
