@@ -1,7 +1,9 @@
 // Global Variables \\
 var questionKeys;
+
 // variable to save the user city's current score (Adriano Apr 15 2019)
 let userCityScore;
+
 // Save interval ID to be able to stop when need it
 
 // Time given to user to answer 30 seconds
@@ -46,27 +48,44 @@ fetch(queryUrl)
         questionKeys = result.results;
         arrayGrab();
     })
-    // Enable Start Button after data ia loaded
-    .then(() => startButtonClick())
-    .then(() => updateView());
 
+// Enable Start Button after data ia loaded
+    .then(()=> startButtonClick() )
+    // Update view after data arrive
+    .then(()=> updateView());
+    
+ 
 // Array with Questions keys
 function arrayGrab() {
     var arrayKey = Object.keys(questionKeys);
     console.dir(arrayKey);
 }
 
-
-// Update view after data arrive
-
-
-
-
 /*****************************************************************************/
 /* * * * * * * * * * * * * * getCorrectAnswerGIF() * * * * * * * * * * * * * */
 /*****************************************************************************/
 // Functions to get gif animation for the corret answer
 //api.giphy.com/v1/gifs/random?api_key=5txQgNzAKY8UPAGRI78q6WpaFO8ls0Zn&tag=${search}&rating=G`;
+
+
+function displayGIF(search) {
+    //created a new pull request from the source url
+    var correctAnsGifs = new XMLHttpRequest();
+    correctAnsGifs.open('GET', 'https://api.giphy.com/v1/gifs/random?api_key=5txQgNzAKY8UPAGRI78q6WpaFO8ls0Zn&tag=${search}');
+    correctAnsGifs.onload = function () {
+    
+        var ourGifs = JSON.parse(correctAnsGifs.responseText);
+        console.dir(ourGifs.data.images.fixed_width.url);
+        
+    
+    }
+    correctAnsGifs.send();
+
+    //now I need to check whether the ans is correct. if ans is correct gif will display. For that, i need to access questions and answer. 
+
+
+
+}
 
 
 
@@ -357,6 +376,7 @@ function getCurrentCityScore(country, zipCode) {
 function onAnswerClick(event){
     var clickedAnswer = event.target.innerHTML;
     console.log(clickedAnswer);
+
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
