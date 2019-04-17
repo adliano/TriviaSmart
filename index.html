@@ -27,7 +27,9 @@
       <div class="col text-center">
         <h1 class="font-weight-bolder my-5 py-5 startHeader"><span>Smart Trivia</span></h1>
         <!-- Button Disable by default and it will become enable after data is loaded  -->
-        <button id="startButton" class="pushy__btn btn btn-outline-primary px-5 my-5" disabled>Start</button>
+        <div class="my-5">
+          <button id="startButton" class="pushy__btn btn btn-outline-primary " disabled>Start</button>
+        </div>
       </div>
     </div>
   </div>
@@ -65,19 +67,24 @@
       </div>
       <div class="col-lg-3"></div>
     </div>
-    <!-- ---------------------------------------------------- -->
-    <!-- Container with the Game Over Info and restart Button -->
-    <!-- ---------------------------------------------------- -->
-    <div id="gameOverContainer" class="container my-5 bg-container invisible">
-      <div class="row">
-        <div class="col text-center">
-          <h2 class="my-5">All Done, Heres How You Did!</h2>
-          <h3>Correct Answers : <span id="correctAnswersCount">0</span></h3>
-          <h3>Incorrect Answers : <span id="wrongAnswersCount">0</span></h3>
-          <h3>Unanswered : <span id="noAnswersCount"></span></h3>
-          <!-- Button to reload the game after game over  -->
-          <button id="reloadButton" class="btn btn-outline-primary px-5 my-5">Restart</button>
-          <!-- <div class="h-100"></div> -->
+  </div>
+
+  <!-- ---------------------------------------------------- -->
+  <!-- Container with the Game Over Info and restart Button -->
+  <!-- ---------------------------------------------------- -->
+  <div id="gameOverContainer" class="container my-5 bg-container invisible">
+    <div class="row">
+      <div class="col text-center mt-2">
+            <h1 class="font-weight-bolder text-primary allDoneHeader"><span>All Done!</span></h1>
+        <!-- <h1 class="font-weight-bolder allDoneHeader"><span>All Done!</span></h1> -->
+        <h3>Heres How You Did</h3>
+        <h3>Correct Answers : <span id="correctAnswersCount">0</span></h3>
+        <h3>Incorrect Answers : <span id="wrongAnswersCount">0</span></h3>
+        <h3>Unanswered : <span id="noAnswersCount"></span>0</h3>
+        <!-- Button to reload the game after game over  -->
+        <!-- <button id="reloadButton" class="btn btn-outline-primary px-5 my-5">Restart</button> -->
+        <div class="my-5">
+          <button id="startButton" class="pushy__btn btn btn-outline-primary ">Restart</button>
         </div>
       </div>
     </div>
