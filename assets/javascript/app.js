@@ -10,25 +10,25 @@ var questionKeys;
 /******************************************************************************/
 // Function to get 10 questions from API and save on JSON object
 // Get questions from API using promisses
-var queryUrl= "https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple";
+var queryUrl = "https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple";
 // Save the object
 fetch(queryUrl)
-//translate into json
-    .then((response) => response.json()) 
-// do something with the promise
-    .then((result)=> {
+    //translate into json
+    .then((response) => response.json())
+    // do something with the promise
+    .then((result) => {
         console.dir(result.results);
-        questionKeys=result.results;
+        questionKeys = result.results;
         arrayGrab();
     })
-// Enable Start Button after data ia loaded
-    .then(()=> startButtonClick() )
-    .then(()=> updateView());
-    
+    // Enable Start Button after data ia loaded
+    .then(() => startButtonClick())
+    .then(() => updateView());
+
 // Array with Questions keys
-function arrayGrab(){
-var arrayKey  = Object.keys(questionKeys);
-console.dir(arrayKey);
+function arrayGrab() {
+    var arrayKey = Object.keys(questionKeys);
+    console.dir(arrayKey);
 }
 
 
@@ -56,7 +56,7 @@ console.dir(arrayKey);
 /* * * * * * * * * * * * * * * mkVisible() * * * * * * * * * * * * * * * * * */
 /*****************************************************************************/
 // function used to make element visible, argument for function will be ids or classes
-function mkVisible(selector){
+function mkVisible(selector) {
     document.querySelector(selector).classList.remove("invisible");
 }
 
@@ -65,7 +65,7 @@ function mkVisible(selector){
 /* * * * * * * * * * * * * * * mkInvisible() * * * * * * * * * * * * * * * * * */
 /*******************************************************************************/
 // function used to make element invisible, argument for function will be ids or classes
-function mkInvisible(selector){
+function mkInvisible(selector) {
     document.querySelector(selector).classList.add("invisible");
 }
 
@@ -101,11 +101,11 @@ function mkInvisible(selector){
 /* * * * * * * * * * * * * * * * updateTimer() * * * * * * * * * * * * * * * * */
 /*******************************************************************************/
 // function updateTimer() {
-    // Set Counter to always show two digits
-    // Display Updated conter
-    // Stop if counter reachs zero
-    // Make it red color if counter bellow 10
-    // Update Counter
+// Set Counter to always show two digits
+// Display Updated conter
+// Stop if counter reachs zero
+// Make it red color if counter bellow 10
+// Update Counter
 //}
 
 
@@ -113,21 +113,21 @@ function mkInvisible(selector){
 /* * * * * * * * * * * * * * * showAnwser() * * * * * * * * * * * * * * * */
 /***************************************************************************/
 // function showAnwser(isCorrect) {
-    // Let user see the result for 5 seconds
-    // remove timerHearder, question and btnColumn from view
-    //display displayGIF
-    // Get Element of img, there is only one element child so we most use [0]
-    // Check if user answer correct,wrong or timeout
-    // User answered correct
-    // Update toatlWin
-    // set text for answer status
-    // add the src to img
-    // User Missed
-    // update totalLost
-    // set text for answer status
-    // Not Answer, Time out
-    // Update notAnswered counter
-    // set text for answer status
+// Let user see the result for 5 seconds
+// remove timerHearder, question and btnColumn from view
+//display displayGIF
+// Get Element of img, there is only one element child so we most use [0]
+// Check if user answer correct,wrong or timeout
+// User answered correct
+// Update toatlWin
+// set text for answer status
+// add the src to img
+// User Missed
+// update totalLost
+// set text for answer status
+// Not Answer, Time out
+// Update notAnswered counter
+// set text for answer status
 //}
 //
 
@@ -139,28 +139,28 @@ function mkInvisible(selector){
 // this function will return the correct_answer 
 // to compare with user answer
 // function updateView() {
-    function updateView(){
-        console.log("view has been updated duuuude");
-    }
-    // Check for Game Over
-    // stop timer
-    // update view
-    // Get a rand key ussing splice (splice return a Array)
-    // Get randon object from questionsObjects using splice to void erpetitive questions
-    // Get string question
-    // Set the question
-    // Get the correct_answer (it will be the return of this function)
-    // Add correct_answer to incorrect_answers array to shuffle
-    // Get all answer buttons
-    // Random place correct and incorrect answer on the buttons
-    // Get Correct answer gif url
-    // Get wronganswer git url
-    // remove gif animation displayGIF
-    // display timerHearder, question and btnColumn
-    // Stop timer
-    // Reset counter
-    // timerCounter = 30;
-    //Start timer and update each 1 second
+function updateView() {
+    console.log("view has been updated duuuude");
+}
+// Check for Game Over
+// stop timer
+// update view
+// Get a rand key ussing splice (splice return a Array)
+// Get randon object from questionsObjects using splice to void erpetitive questions
+// Get string question
+// Set the question
+// Get the correct_answer (it will be the return of this function)
+// Add correct_answer to incorrect_answers array to shuffle
+// Get all answer buttons
+// Random place correct and incorrect answer on the buttons
+// Get Correct answer gif url
+// Get wronganswer git url
+// remove gif animation displayGIF
+// display timerHearder, question and btnColumn
+// Stop timer
+// Reset counter
+// timerCounter = 30;
+//Start timer and update each 1 second
 //}
 
 
@@ -170,23 +170,83 @@ function mkInvisible(selector){
 // callback used on start button event listener
 
 //function onStartButtonClick() {
-function startButtonClick(){
-// Get start button element 
+function startButtonClick() {
+    // Get start button element 
     var btn = document.querySelector("#startButton");
-// Enable the start button
-    btn.disabled=false;
-// Add the event listner
-    btn.addEventListener("click",function(){
-//console log if button was clicked        
+    // Enable the start button
+    btn.disabled = false;
+    // Add the event listner
+    btn.addEventListener("click", function () {
+        //console log if button was clicked        
         console.log("button clickeddddd son");
         //get rid of container holding button 
         mkInvisible("#containerStart");
         mkVisible("#questionsContainer");
     });
-};  
-    
+};
+
 //}
 
+/* ********************************************************************** */
+/* * * * * * * * * * * * getNumberWithOrdinal() * * * * * * * * * * * * * */
+/* ********************************************************************** */
+// Adriano Apr 15 2019
+// function to parse numbers to a Ordinal Format like 1st, 2nd, 3rd ...
+// https://community.shopify.com/c/Shopify-Design/Ordinal-Number-in-javascript-1st-2nd-3rd-4th/m-p/72156
+function getNumberWithOrdinal(number) {
+    // array with ordinals to be refer from return
+    let ord = ["th", "st", "nd", "rd"];
+    // get mod 100 of input number
+    let mod = number % 100;
+    return number + (ord[(mod - 20) % 10] || ord[mod] || ord[0]);
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/* * * * * * * * * * * * * * updateScoresView() * * * * * * * * * * * * * * */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+// Adriano Apr 15 2019
+// event listner trigged on any value change,
+// this willl get the 10 highest scores from firebase of user's country
+// this function will be called from function getCityInfo() 
+function updateScoresView(country) {
+    // counter used to set ordinal
+    let counter = 0;
+    /*****************/
+    /* printScores() */
+    /*****************/
+    // Function using recursion to display 10 tops scores on view 
+    function printScores(scorreArray) {
+        // check if array still have data
+        if (scorreArray.length > 0) {
+            // pop item from array
+            let item = scorreArray.pop();
+            // debug \\
+            console.log(`%c ${getNumberWithOrdinal(++counter)} ${item}`, `color:white; background-color : blue;`);
+            //
+            // TODO: display score on view 
+            //
+            // print next score
+            printScores(scorreArray);
+        }
+    }
+    // get data from '${country}/', order by score and get the 10 last objects
+    myDatabase.ref(`${country}/`).orderByChild('score').limitToLast(10).on("value", function (snapshot) {
+        // create a stack to place data
+        // remember stack is last in, first out data structure
+        let stack = [];
+        // debug
+        console.log(`snapshot length : ${snapshot.numChildren()}`); 
+        // debug
+        console.dir(snapshot.val()); 
+        // iterate through object 
+        snapshot.forEach(function (data) {
+            // push data in format cityName cityScore to stack
+            ///// TODO: Display format should be done here \\\\\
+            stack.push(`${data.val().city} ${data.val().score}`);
+        });
+        // call function printScores() to display scores in Ascending order
+        printScores(stack);
+    });
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /* * * * * * * * * * * * * * onAnswerClick() * * * * * * * * * * * * * * * */
