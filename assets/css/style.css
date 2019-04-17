@@ -5,6 +5,7 @@ font-family: 'Vesper Libre', serif;
 font-family: 'Bungee Shade', cursive;
 font-family: 'Fredoka One', cursive;
 font-family: 'Luckiest Guy', cursive; 
+font-family: 'Acme', sans-serif;
 
 
 colors
@@ -23,10 +24,11 @@ body {
     font-family: 'Vesper Libre', serif;
 }
 
-button, .btn {
+#btnColumn button ,.btn{
     font-family: 'Luckiest Guy', cursive;
     font-size: 2rem;
     background-color: #692db7;
+    color: white;
 }
 
 /* h1 */
@@ -47,7 +49,7 @@ button, .btn {
 }
 
 .startHeader:after {
-    content: 'Smart Trivial Trivia';
+    content: 'Smart Trivia';
     color: #000000;
     text-shadow: 0 2px 0 red;
 }
@@ -88,3 +90,8 @@ button, .btn {
 /* #triviaHeader {
     color: #f25d9c;
 } */
+
+.question {
+    font-family: 'Acme', sans-serif;
+    font-size: 2.5rem;
+}
