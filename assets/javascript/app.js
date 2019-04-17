@@ -156,7 +156,7 @@ function rand(range){
 /****************************************************************************/
 // function to stop timer
 function stop(){
-    clearTimeout(timeId);
+    clearInterval(timeId);
 }
 
 /*******************************************************************************/
