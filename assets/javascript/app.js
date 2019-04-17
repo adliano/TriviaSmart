@@ -354,7 +354,10 @@ function getCurrentCityScore(country, zipCode) {
 // Get text from clicked button
 // check answer status
 //}
-
+function onAnswerClick(event){
+    var clickedAnswer = event.target.innerHTML;
+    console.log(clickedAnswer);
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /* * * * * * * * * * * * * * onReloadClick() * * * * * * * * * * * * * * * */
@@ -372,7 +375,7 @@ getGeoLocation();
 //document.querySelector("#reloadButton").addEventListener("click", onReloadClick);
 
 // Add the onclick listener to answers buttons
-//document.querySelector("#btnColumn").addEventListener("click", onAnswerClick);
+document.querySelector("#btnColumn").addEventListener("click", onAnswerClick);
 //
 // getQuestions("easy");
 
