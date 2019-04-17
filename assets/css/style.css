@@ -52,15 +52,6 @@ button, .btn {
     text-shadow: 0 2px 0 red;
 }
 
-/* h3 {
-    font-family:
-} */
-
-/* #triviaHeader {
-    font-family:
-        font-size:
-} */
-
 .bg-container {
     min-height: 250px;
     min-width: 250px;
@@ -88,3 +79,12 @@ button, .btn {
 /* #triviaHeader {
     color: #f25d9c;
 } */
+
+.bg-card{
+    background-color: #692db7;
+    font-family: 'Luckiest Guy',cursive;
+}
+
+.bg-card h3{
+    font-size: 2.5rem;
+}
