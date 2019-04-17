@@ -100,7 +100,11 @@ function mkInvisible(selector) {
 // function to set text content on element, argument will be selector and text to be set
 // function setText(selector, text) {
 //}
-
+function setText(selector,text){
+    document.querySelector(selector).innerHTML = text;
+}
+// test
+//setText("#question","you are ugly");
 
 /******************************************************************************/
 /* * * * * * * * * * * * * * * * * * rand() * * * * * * * * * * * * * * * * * */
