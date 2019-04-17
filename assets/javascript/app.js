@@ -130,7 +130,19 @@ function setText(selector,text){
 /******************************************************************************/
 // Function that generate random number
 // this will return a number beteween 0 and (exclusive) range argument
+function rand(range){
+    return Math.floor(Math.random()* range);
+}
+//test
 
+//console.log(rand(5));
+
+
+
+//console.log(rand(5));
+
+
+//console.log(rand(5));
 
 /******************************************************************************/
 /* * * * * * * * * * * * * * * * startTimer() * * * * * * * * * * * * * * * * */
@@ -161,6 +173,9 @@ function setText(selector,text){
 /* * * * * * * * * * * * * * * showAnwser() * * * * * * * * * * * * * * * */
 /***************************************************************************/
 // function showAnwser(isCorrect) {
+    function showAnwser(isCorrect){
+
+    }
 // Let user see the result for 5 seconds
 // remove timerHearder, question and btnColumn from view
 //display displayGIF
@@ -354,9 +369,9 @@ function getCurrentCityScore(country, zipCode) {
     // get firbase snapshot  
     myDatabase.ref(`${country}/`).on(`value`, function (snapshot) {
         // and get the score on database for current city
-        userCityScore = snapshot.val()[zipCode].score;
+       // userCityScore = snapshot.val()[zipCode].score;
         // debugging
-        console.log(`%cuserCityScore : ${userCityScore}`, `background-color: cyan;`);
+       // console.log(`%cuserCityScore : ${userCityScore}`, `background-color: cyan;`);
     },
     // check for error 
     function (error) {
