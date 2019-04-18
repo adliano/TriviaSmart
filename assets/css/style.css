@@ -5,6 +5,7 @@ font-family: 'Vesper Libre', serif;
 font-family: 'Bungee Shade', cursive;
 font-family: 'Fredoka One', cursive;
 font-family: 'Luckiest Guy', cursive; 
+font-family: 'Acme', sans-serif;
 
 
 colors
@@ -23,10 +24,11 @@ body {
     font-family: 'Vesper Libre', serif;
 }
 
-button, .btn {
+#btnColumn button ,.btn{
     font-family: 'Luckiest Guy', cursive;
     font-size: 2rem;
     background-color: #692db7;
+    color: white;
 }
 
 /* h1 */
@@ -79,6 +81,7 @@ button, .btn {
 /* #triviaHeader {
     color: #f25d9c;
 } */
+
 
 /* //////////////// Style for Card With Scores /////////////////////// */
 .card-header{
