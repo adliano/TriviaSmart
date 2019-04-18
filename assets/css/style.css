@@ -99,19 +99,15 @@ button ,.pushy__btn {
     display: none;
 }
 
-
-h3 {
-    font-family: 'Acme', sans-serif;
-    font-size: 2.2rem;
+/* //////////////// Style for Card With Scores /////////////////////// */
+.card-header{
+    background-color: #692db7;
+    font-family: 'Luckiest Guy',cursive;
 }
 
-/* .question {
-    font-family: 'Acme', sans-serif;
-    font-size: 2.5rem;
-} */
-
-#timerHeader {
-    font-family: 'Acme',
-    sans-serif;
-
+.score-card{
+    background-color: rgba(255, 255, 200, 0.15);
+    color: white;
+    font-size: 1rem;
 }
+/* //////////////////////////////////////////////////////////////////// */
