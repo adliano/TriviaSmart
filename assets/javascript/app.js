@@ -1,5 +1,10 @@
 // Global Variables \\
 var questionKeys;
+//creating a global variable for accessing gif url
+var gifUrl;
+
+//global varibale to hold timeOut id
+var timeId;
 
 // variable to save the user city's current score (Adriano Apr 15 2019)
 let userCityScore;
@@ -7,7 +12,7 @@ let userCityScore;
 // Save interval ID to be able to stop when need it
 
 // Time given to user to answer 30 seconds
-
+var timerCounter;
 ///////// Location API URL \\\\\\\\\ Adriano Alves Apr 14 2019
 const LOCATION_API_URL = `http://open.mapquestapi.com/geocoding/v1/reverse?`
 //
@@ -66,26 +71,23 @@ function arrayGrab() {
 /*****************************************************************************/
 // Functions to get gif animation for the corret answer
 //api.giphy.com/v1/gifs/random?api_key=5txQgNzAKY8UPAGRI78q6WpaFO8ls0Zn&tag=${search}&rating=G`;
-
-
 function displayGIF(search) {
-    //created a new pull request from the source url
+    //created a variable to new pull request from the source url
     var correctAnsGifs = new XMLHttpRequest();
+    //method open to GET url from the source
     correctAnsGifs.open('GET', 'https://api.giphy.com/v1/gifs/random?api_key=5txQgNzAKY8UPAGRI78q6WpaFO8ls0Zn&tag=${search}');
+    //method onload, function to access the object by converting into a JSON format
     correctAnsGifs.onload = function () {
-    
+        //variable to store gifs from JSON by parsing response text
         var ourGifs = JSON.parse(correctAnsGifs.responseText);
-        console.dir(ourGifs.data.images.fixed_width.url);
-        
-    
+        gifUrl = ourGifs.data.images.fixed_width.url;
+        //console.dir dislays in the console
+        console.dir(gifUrl);
     }
+    //sending the request to the source url 
     correctAnsGifs.send();
-
-    //now I need to check whether the ans is correct. if ans is correct gif will display. For that, i need to access questions and answer. 
-
-
-
 }
+displayGIF('horse');
 
 
 
@@ -148,9 +150,10 @@ function rand(range){
 /* * * * * * * * * * * * * * * * startTimer() * * * * * * * * * * * * * * * * */
 /******************************************************************************/
 // function to start timer that user will have to answer
-// function startTimer(callback, seconds = 1) 
-
-
+function startTimer(callback, seconds = 1) {
+    //starting the time Interval and saving its ID to timeID vairbale
+    timeId = setInterval(callback, 1000 * seconds);
+}
 /****************************************************************************/
 /* * * * * * * * * * * * * * * * * stop() * * * * * * * * * * * * * * * * * */
 /****************************************************************************/
@@ -169,6 +172,24 @@ function stop(){
 // Make it red color if counter bellow 10
 // Update Counter
 //}
+function updateTimer(){
+    // makes sure to leave 2 digits for seconds even if under 2 digits
+    timerCounter = ("0"+timerCounter).slice(-2);
+    //changes text of timer with timercounter
+    setText("#timerId", timerCounter);
+    //if timer counter is equal to zero, stop timer and show answer also remove red color for next itiration
+    if(timerCounter == 0){
+        stop();
+        showAnwser();
+        document.querySelector("#timerId").classList.remove("text-danger");
+    }
+    // if counter is less than 10, change it to red color
+    else if(timerCounter < 10){
+        document.querySelector("#timerId").classList.add("text-danger");
+    }
+    // make counter go down by one each iteration 
+    timerCounter--;
+}
 
 
 /***************************************************************************/
