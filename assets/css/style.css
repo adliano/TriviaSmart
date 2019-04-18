@@ -24,14 +24,16 @@ body {
     font-family: 'Vesper Libre', serif;
 }
 
-#btnColumn button ,.btn{
+button ,.pushy__btn {
     font-family: 'Luckiest Guy', cursive;
     font-size: 2rem;
     background-color: #692db7;
     color: white;
 }
 
-/* h1 */
+.pushy__btn:hover {
+    background-color: #8158fc;
+}
 
 .startHeader {
     position: relative;
@@ -52,6 +54,29 @@ body {
     content: 'Smart Trivia';
     color: #000000;
     text-shadow: 0 2px 0 red;
+
+}
+
+.allDoneHeader {
+    position: relative;
+    font-size: 5rem;
+    font-family: 'Luckiest Guy',
+    cursive;
+    color: #34314f;
+}
+
+.allDoneHeader span {
+    position: absolute;
+    font-size: 5rem;
+    font-family: 'Luckiest Guy',cursive;
+    color: #692db7;
+    -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 1)), color-stop(50%, rgba(0, 0, 0, .5)), to(rgba(0, 0, 0, 1)));
+}
+
+.allDoneHeader:after {
+    content: 'All Done!';
+    color: #000000;
+    text-shadow: 0 2px 0 red;
 }
 
 .bg-container {
@@ -70,18 +95,9 @@ body {
     text-align: center;
 }
 
-/* .btn {
-    font-size:
-} */
-
 .invisible {
     display: none;
 }
-
-/* #triviaHeader {
-    color: #f25d9c;
-} */
-
 
 /* //////////////// Style for Card With Scores /////////////////////// */
 .card-header{
