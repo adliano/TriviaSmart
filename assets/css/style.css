@@ -47,19 +47,10 @@ button, .btn {
 }
 
 .startHeader:after {
-    content: 'Smart Trivial Trivia';
+    content: 'Smart Trivia';
     color: #000000;
     text-shadow: 0 2px 0 red;
 }
-
-/* h3 {
-    font-family:
-} */
-
-/* #triviaHeader {
-    font-family:
-        font-size:
-} */
 
 .bg-container {
     min-height: 250px;
@@ -88,3 +79,16 @@ button, .btn {
 /* #triviaHeader {
     color: #f25d9c;
 } */
+
+/* //////////////// Style for Card With Scores /////////////////////// */
+.card-header{
+    background-color: #692db7;
+    font-family: 'Luckiest Guy',cursive;
+}
+
+.score-card{
+    background-color: rgba(255, 255, 200, 0.15);
+    color: white;
+    font-size: 1rem;
+}
+/* //////////////////////////////////////////////////////////////////// */

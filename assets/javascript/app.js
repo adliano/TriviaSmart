@@ -350,6 +350,8 @@ function getGeoLocation() {
 /* * * * * * * * * * * * * * * * getCity() * * * * * * * * * * * * * * * */
 /* ********************************************************************* */
 // Adriano Apr 14 2019
+// this function will use Mapquest API to get info about user current location
+// like country, state, city, etc
 function getCity(userPosition) {
     // get latitude
     let lat = userPosition.coords.latitude;
@@ -374,9 +376,8 @@ function getCity(userPosition) {
             userPostalCode = location.postalCode;
             // get users country
             userCountry = location.adminArea1;
-            // Get current city's score
+            // Get current city's score bt calling getCurrentCityScore()
             getCurrentCityScore(userCountry, userPostalCode);
-
             // TODO: use function setText(selector)
             document.querySelector('.footer h6').innerHTML = currentCity;
             // document.querySelector('#map').setAttribute(`src`, location.mapUrl);
@@ -392,9 +393,9 @@ function getCurrentCityScore(country, zipCode) {
     // get firbase snapshot  
     myDatabase.ref(`${country}/`).on(`value`, function (snapshot) {
         // and get the score on database for current city
-       // userCityScore = snapshot.val()[zipCode].score;
+       userCityScore = snapshot.val()[zipCode].score;
         // debugging
-       // console.log(`%cuserCityScore : ${userCityScore}`, `background-color: cyan;`);
+       console.log(`%cuserCityScore : ${userCityScore}`, `background-color: cyan;`);
     },
     // check for error 
     function (error) {

@@ -4,8 +4,6 @@
 <!-- https://opentdb.com/api.php -->
 <html lang="en">
 
-
-
 <head>
   <title>Trivia Smart</title>
   <!-- Required meta tags -->
@@ -19,85 +17,124 @@
   <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
-
 <body>
-  <!-- ------------------------------------------------- -->
-  <!--         Container with the strat Button           -->
-  <!-- ------------------------------------------------- -->
-  <!-- MAKE INVISIBLE AFTER USER ENTER HIS USER NAME AND PRESS START BUTTON -->
-  <div id="containerStart" class="container my-5 bg-container">
-    <div class="row">
-      <div class="col text-center">
-        <h1 id="triviaHeader" class="font-weight-bolder my-5 py-5 startHeader"><span>Smart Trivial Trivia</span></h1>
-
-        <!-- Button Disable by default and it will become enable after data is loaded  -->
-        <button id="startButton" class="btn btn-outline-primary text-light px-5 my-5" disabled>Start</button>
-
+  <div class="container">
+    <div class="row text-center">
+      <!-- ------------------------------------------------- -->
+      <!--           Column with the strat Button            -->
+      <!-- ------------------------------------------------- -->
+      <!-- MAKE INVISIBLE AFTER USER ENTER HIS USER NAME AND PRESS START BUTTON -->
+      <div id="containerStart" class="col-lg-8 col-md-12 col-12 my-5 bg-container">
+        <div class="row">
+          <div class="col text-center">
+            <h1 id="triviaHeader" class="font-weight-bolder my-5 py-5 startHeader"><span>Smart Trivia</span></h1>
+            <!-- Button Disable by default and it will become enable after data is loaded  -->
+            <button id="startButton" class="btn btn-outline-primary text-light px-5 my-5" disabled>Start</button>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Button Disable by default and it will become enable after data is loaded  -->
-  <!-- ---------------------------------------------------- -->
-  <!-- Container with the Game Over Info and restart Button -->
-  <!-- ---------------------------------------------------- -->
-  <!-- GAME VIEW -->
-  <!-- INVISIBLE CONTAINER TO DISPLAY QUESTIONS AFTER USER PRESS START BUTTON --> 
-  <!-- Button to reload the game after game over  -->
-  <!-- ------------------------------------------------- -->
-  <!--         Container with questions Headers          -->
-  <!-- ------------------------------------------------- -->
-  <div id="questionsContainer" class="container align-middle text-center my-5 p-5 bg-container invisible">
-    <h1 id="triviaHeader" class="font-weight-bolder text-primary my-5 py-5">Totally Trivial Trivia</h1>
-    <h2 id="timerHeader" class="my-5">Time Remaining : <span id="timerID" class="w-100 m-1">30</span> Seconds</h2>
-    <h3 id="question">My Question Here</h3>
-    <!-- ------------------------------------------------- -->
-    <!-- Container with questions and answer Buttons       -->
-    <!-- ------------------------------------------------- -->
-    <div class="row">
-      <div class="col-lg-3"></div>
-      <div id="btnColumn" class="col-lg-6">
-        <button class="btn btn-outline-dark w-100 m-1">fdasf</button>
-        <button class="btn btn-outline-dark w-100 m-1"></button>
-        <button class="btn btn-outline-dark w-100 m-1"></button>
-        <button class="btn btn-outline-dark w-100 m-1"></button>
+      <!-- ---------------------------------------------------- -->
+      <!-- Container with the Game Over Info and restart Button -->
+      <!-- ---------------------------------------------------- -->
+      <!-- ------------------------------------------------- -->
+      <!--            Column with questions Headers          -->
+      <!-- ------------------------------------------------- -->
+      <!-- INVISIBLE CONTAINER TO DISPLAY QUESTIONS AFTER USER PRESS START BUTTON -->
+      <div id="questionsContainer" class="col-lg-8 col-md-12 col-12 bg-container invisible">
+        <h1 id="triviaHeader" class="font-weight-bolder text-primary my-5 py-5">Totally Trivial Trivia</h1>
+        <h2 id="timerHearder" class="my-5">Time Remaining : <span id="timerID" class="w-100 m-1">30</span> Seconds</h2>
+        <h3 id="question">My Question Here</h3>
+        <!-- ------------------------------------------------- -->
+        <!-- Container with questions and answer Buttons       -->
+        <!-- ------------------------------------------------- -->
+        <div class="row">
+          <div class="col-lg-3"></div>
+          <div id="btnColumn" class="col-lg-6">
+            <button class="btn btn-outline-dark w-100 m-1">fdasf</button>
+            <button class="btn btn-outline-dark w-100 m-1"></button>
+            <button class="btn btn-outline-dark w-100 m-1"></button>
+            <button class="btn btn-outline-dark w-100 m-1"></button>
+          </div>
+          <!-- Div container to hold the GIF to be display -->
+          <div id="displayGIF" class="col-lg-6 invisible">
+            <img src="" alt="GIF">
+          </div>
+          <div class="col-lg-3"></div>
+        </div>
       </div>
-      <!-- Div container to hold the GIF to be display -->
-      <div id="displayGIF" class="col-lg-6 invisible">
-        <img src="" alt="GIF">
+      <!-- Card -->
+      <div class="col-lg-4 col-md-12 col-12">
+        <div class="card my-5 score-card">
+          <div class="card-header">
+            <h4 class="card-title m-0 p-0">Scores</h4>
+          </div>
+          <div class="card-body">
+            <table class="table font-weight-bolder text-light">
+              <thead>
+                <tr>
+              </thead>
+              <tbody class="scoreTable">
+                <tr>
+                  <td scope="row">Napa, CA</td>
+                  <td>9500</td>
+                </tr>
+                <tr>
+                  <td scope="row">Oakland, CA</td>
+                  <td>7500</td>
+                </tr>
+                <tr>
+                  <td scope="row">Albany, CA</td>
+                  <td>5400</td>
+                </tr>
+                <tr>
+                  <td scope="row">Hayward, CA</td>
+                  <td>1500</td>
+                </tr>
+                <tr>
+                  <td scope="row">Livermore, CA</td>
+                  <td>1500</td>
+                </tr>
+                <tr>
+                  <td scope="row">Tracy, CA</td>
+                  <td>1500</td>
+                </tr>
+                <tr>
+                  <td scope="row">San Mateo, CA</td>
+                  <td>1500</td>
+                </tr>
+                <tr>
+                  <td scope="row">Redwood city, CA</td>
+                  <td>1500</td>
+                </tr>
+                <tr>
+                  <td scope="row">Los Altos, CA</td>
+                  <td>1500</td>
+                </tr>
+                <tr>
+                  <td scope="row">San Francisco, CA</td>
+                  <td>1500</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <div class="col-lg-3"></div>
-    </div>
-    <!-- <div class="row text-center h-25"> -->
-    <!-- <button id="update" class="btn btn-primary mx-auto my-5">Update</button> -->
-    <!-- </div> -->
-  </div>
-
-
-
-
-
-
-
-
-
-  <!-- ------------------------------------------------- -->
-  <!-- Container with questions and answer Buttons       -->
-  <!-- ------------------------------------------------- -->
-  <!-- Div container to hold the GIF to be display -->
-
-
+      <!-- end of Card -->
+    </div> <!-- end of row -->
+  </div><!-- end of container -->
   <!-- ---------------------------------------------- -->
   <!-- ------ Footer to display current city -------- -->
   <!-- ---------------------------------------------- -->
   <footer class="footer">
     <h6>current city</h6>
   </footer>
+
   <!-- Firebase Adriano Apr 15 2019 -->
   <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
   <!-- Javascript -->
   <script src="assets/javascript/app.js"></script>
-
 
 </body>
 
