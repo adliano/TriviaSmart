@@ -47,7 +47,7 @@ button, .btn {
 }
 
 .startHeader:after {
-    content: 'Smart Trivial Trivia';
+    content: 'Smart Trivia';
     color: #000000;
     text-shadow: 0 2px 0 red;
 }
@@ -80,11 +80,15 @@ button, .btn {
     color: #f25d9c;
 } */
 
-.bg-card{
+/* //////////////// Style for Card With Scores /////////////////////// */
+.card-header{
     background-color: #692db7;
     font-family: 'Luckiest Guy',cursive;
 }
 
-.bg-card h3{
-    font-size: 2.5rem;
+.score-card{
+    background-color: rgba(255, 255, 200, 0.15);
+    color: white;
+    font-size: 1rem;
 }
+/* //////////////////////////////////////////////////////////////////// */
