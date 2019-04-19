@@ -234,6 +234,7 @@ function updateView() {
         mkInvisible("#questionsContainer");
         // display #gameOverContainer
         mkVisible("#gameOverContainer");
+
         // display .score-card
         mkVisible(".score-card");
         // Set new score
@@ -305,6 +306,7 @@ function startButtonClick() {
         //get rid of container holding button 
         mkInvisible("#containerStart");
         mkVisible("#questionsContainer");
+        mkInvisible("#scoreContainer")
     });
 };
 /* ********************************************************************** */
