@@ -1,5 +1,5 @@
 // Global Variables \\
-var questionKeys;
+var questionsObjects;
 //creating a global variable for accessing gif url
 var gifUrl;
 
@@ -40,12 +40,14 @@ let gameInfo = { toatlWin: 0, totalLost: 0, totalRounds: 0, notAnswered: 0 };
 
 let correctAnswer; // Adriano
 
+var arrayKey; // Luiz
+
 /******************************************************************************/
 /* * * * * * * * * * * * * * * * getQuestions() * * * * * * * * * * * * * * * */
 /******************************************************************************/
 // Function to get 10 questions from API and save on JSON object
 // Get questions from API using promisses
-var queryUrl = "https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple";
+var queryUrl = "https://opentdb.com/api.php?amount=1&category=26&difficulty=easy&type=multiple";
 // Save the object
 fetch(queryUrl)
     //translate into json
@@ -53,7 +55,7 @@ fetch(queryUrl)
     // do something with the promise
     .then((result) => {
         console.dir(result.results);
-        questionKeys = result.results;
+        questionsObjects = result.results;
         arrayGrab();
     })
 
@@ -65,7 +67,7 @@ fetch(queryUrl)
  
 // Array with Questions keys
 function arrayGrab() {
-    var arrayKey = Object.keys(questionKeys);
+    arrayKey = Object.keys(questionsObjects);
     console.dir(arrayKey);
 }
 
@@ -78,7 +80,7 @@ function displayGIF(search) {
     //created a variable to new pull request from the source url
     var correctAnsGifs = new XMLHttpRequest();
     //method open to GET url from the source
-    correctAnsGifs.open('GET', 'https://api.giphy.com/v1/gifs/random?api_key=5txQgNzAKY8UPAGRI78q6WpaFO8ls0Zn&tag=${search}');
+    correctAnsGifs.open('GET', `https://api.giphy.com/v1/gifs/random?api_key=5txQgNzAKY8UPAGRI78q6WpaFO8ls0Zn&tag=${search}`);
     //method onload, function to access the object by converting into a JSON format
     correctAnsGifs.onload = function () {
         //variable to store gifs from JSON by parsing response text
@@ -179,16 +181,16 @@ function updateTimer(){
     // makes sure to leave 2 digits for seconds even if under 2 digits
     timerCounter = ("0"+timerCounter).slice(-2);
     //changes text of timer with timercounter
-    setText("#timerId", timerCounter);
+    setText("#timerID", timerCounter);
     //if timer counter is equal to zero, stop timer and show answer also remove red color for next itiration
     if(timerCounter == 0){
         stop();
         showAnwser();
-        document.querySelector("#timerId").classList.remove("text-danger");
+        document.querySelector("#timerID").classList.remove("text-danger");
     }
     // if counter is less than 10, change it to red color
     else if(timerCounter < 10){
-        document.querySelector("#timerId").classList.add("text-danger");
+        document.querySelector("#timerID").classList.add("text-danger");
     }
     // make counter go down by one each iteration 
     timerCounter--;
@@ -219,21 +221,21 @@ function showAnwser(isCorrect) {
             // set text for answer status
             setText("#question", 'You Got IT Right!');
             // add the src to img
-            _imgElement.setAttribute("src", correctAnswerGifURL);
+            _imgElement.setAttribute("src", gifUrl);
             break;
         case false: // User Missed
             // update totalLost
             gameInfo.totalLost++;
             // set text for answer status
             setText("#question", `Nope! Right Answer is ${correctAnswer}`);
-            _imgElement.setAttribute("src", wrongAnswerGifURL);
+            _imgElement.setAttribute("src", gifUrl);
             break;
         default: // Not Answer, Time out
             // Update notAnswered counter
             gameInfo.notAnswered++;
             // set text for answer status
             setText("#question", `Time out! Right Answer is ${correctAnswer}`);
-            _imgElement.setAttribute("src", wrongAnswerGifURL);
+            _imgElement.setAttribute("src", gifUrl);
             break;
     }
 }
@@ -242,33 +244,59 @@ function showAnwser(isCorrect) {
 /* ********************************************************************** */
 /* * * * * * * * * * * * * * * * updateView() * * * * * * * * * * * * * * */
 /* ********************************************************************** */
+// Adriano
 // Fubction used to update view with new question
 // this function will return the correct_answer 
 // to compare with user answer
-// function updateView() {
 function updateView() {
-    console.log("view has been updated duuuude");
+    // Stop timer
+    stop();
+    // Check for Game Over
+    if (arrayKey.length < 1) {
+        stop();
+        setText("#correctAnswersCount", gameInfo.toatlWin);
+        setText("#wrongAnswersCount", gameInfo.totalLost);
+        setText("#noAnswersCount", gameInfo.notAnswered);
+        mkInvisible("#questionsContainer");
+        mkVisible("#gameOverContainer");
+        mkVisible(".score-card");//TODO:
+
+        return;
+    }
+    // Reset counter
+    timerCounter = 20;
+    //Start timer and update each 1 second
+    startTimer(updateTimer, 1);
+    // Get a rand key ussing splice (splice return a Array)
+    let _key = arrayKey.splice(rand(arrayKey.length), 1);
+    // Get randon object from questionsObjects using splice to void erpetitive questions
+    let _obj = questionsObjects[_key[0]];
+    // Get string question
+    let _question = _obj.question;
+    // Set the question
+    setText("#question", _question);
+    // Get the correct_answer (it will be the return of this function)
+    correctAnswer = _obj.correct_answer;
+    // Add correct_answer to incorrect_answers array to shuffle
+    _obj.incorrect_answers.push(correctAnswer);
+    // Get all answer buttons
+    let _questionButtons = document.querySelector("#btnColumn").children
+    // Random place correct and incorrect answer on the buttons
+    for (let _btn of _questionButtons) {
+        let _question = _obj.incorrect_answers.splice(rand(_obj.incorrect_answers.length), 1)[0];
+        _btn.innerHTML = _question;
+    }
+    // Get Correct answer gif url
+    displayGIF(`right answer ${correctAnswer}`);
+    // Get wronganswer git url
+    displayGIF(`wrong answer ${correctAnswer}`);
+    // remove gif animation displayGIF
+    mkInvisible("#displayGIF");
+    // display timerHearder, question and btnColumn
+    mkVisible("#timerHearder");
+    mkVisible("#question");
+    mkVisible("#btnColumn");
 }
-// Check for Game Over
-// stop timer
-// update view
-// Get a rand key ussing splice (splice return a Array)
-// Get randon object from questionsObjects using splice to void erpetitive questions
-// Get string question
-// Set the question
-// Get the correct_answer (it will be the return of this function)
-// Add correct_answer to incorrect_answers array to shuffle
-// Get all answer buttons
-// Random place correct and incorrect answer on the buttons
-// Get Correct answer gif url
-// Get wronganswer git url
-// remove gif animation displayGIF
-// display timerHearder, question and btnColumn
-// Stop timer
-// Reset counter
-// timerCounter = 30;
-//Start timer and update each 1 second
-//}
 
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
