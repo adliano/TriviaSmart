@@ -2,28 +2,33 @@
 var questionsObjects;
 //creating a global variable for accessing gif url
 var gifUrl;
-
 //global varibale to hold timeOut id
 var timeId;
-
 // variable to save the user city's current score (Adriano Apr 15 2019)
-let userCityScore;
+// let userCityScore;
+let userCity = {
+    zip : 0,
+    country : "",
+    data: {
+        city: "",
+        score: 0,
+    },   
+}
 
 // Save interval ID to be able to stop when need it
 
 // Time given to user to answer 30 seconds
 var timerCounter;
-///////// Location API URL \\\\\\\\\ Adriano Alves Apr 14 2019
+// Location API URL  Adriano Alves Apr 14 2019
+// API used to get info about users current city, country and zip code
 const LOCATION_API_URL = `http://open.mapquestapi.com/geocoding/v1/reverse?`
-//
+// json used to create URL parameters
 let locationApiParams = {
     key: `PnXATGIJA1knu3AIiLfjICBBfLexttAQ`,
     outFormat: `json`,
     location: ``,
 }
-///////////////////\\\\\\\\\\\\\\\\\\\\\
-
-///////// Initialize Firebase \\\\\\\\\ Adriano Alves Apr 15 2019
+// Initialize Firebase Adriano Alves Apr 15 2019
 let config = {
     apiKey: "AIzaSyBXZX6svzyC6NN6ZQiBKsP5VqZjnH07U_Y",
     authDomain: "triviasmart-c21fb.firebaseapp.com",
@@ -34,7 +39,7 @@ let config = {
 };
 firebase.initializeApp(config);
 let myDatabase = firebase.database();
-///////////////////\\\\\\\\\\\\\\\\\\\\\
+
 
 let gameInfo = { toatlWin: 0, totalLost: 0, totalRounds: 0, notAnswered: 0 };
 
@@ -48,7 +53,7 @@ var arrayKey; // Luiz
 // Function to get 10 questions from API and save on JSON object
 // Get questions from API using promisses
 function getQuestions(){
-var queryUrl = "https://opentdb.com/api.php?amount=1&category=26&difficulty=easy&type=multiple";
+var queryUrl = "https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple";
 // Save the object
 fetch(queryUrl)
     //translate into json
@@ -60,13 +65,13 @@ fetch(queryUrl)
         arrayGrab();
     })
 
-// Enable Start Button after data ia loaded
+    // Enable Start Button after data ia loaded
     .then(()=> startButtonClick() )
     // Update view after data arrive
     .then(()=> updateView());
     
 } 
-// Array with Questions keys
+// Array with Questions keys Luiz
 function arrayGrab() {
     arrayKey = Object.keys(questionsObjects);
     console.dir(arrayKey);
@@ -93,69 +98,44 @@ function displayGIF(search) {
     //sending the request to the source url 
     correctAnsGifs.send();
 }
-displayGIF('horse');
-
-
-
-/*****************************************************************************/
-/* * * * * * * * * * * * * * getWrongAnswerGIF() * * * * * * * * * * * * * * */
-/*****************************************************************************/
-// Functions to get gif animation for the wrong answer
-//api.giphy.com/v1/gifs/random?api_key=5txQgNzAKY8UPAGRI78q6WpaFO8ls0Zn&tag=wrong+answer&rating=G`;
-
-
 /*****************************************************************************/
 /* * * * * * * * * * * * * * * mkVisible() * * * * * * * * * * * * * * * * * */
 /*****************************************************************************/
 // function used to make element visible, argument for function will be ids or classes
+// Luiz
 function mkVisible(selector) {
     document.querySelector(selector).classList.remove("invisible");
 }
-
-
 /*******************************************************************************/
 /* * * * * * * * * * * * * * * mkInvisible() * * * * * * * * * * * * * * * * * */
 /*******************************************************************************/
 // function used to make element invisible, argument for function will be ids or classes
+// Luiz
 function mkInvisible(selector) {
     document.querySelector(selector).classList.add("invisible");
 }
-
 /*******************************************************************************/
 /* * * * * * * * * * * * * * * * * setText() * * * * * * * * * * * * * * * * * */
 /*******************************************************************************/
 // function to set text content on element, argument will be selector and text to be set
-// function setText(selector, text) {
-//}
+// Luiz
 function setText(selector,text){
     document.querySelector(selector).innerHTML = text;
 }
-// test
-//setText("#question","you are ugly");
-
 /******************************************************************************/
 /* * * * * * * * * * * * * * * * * * rand() * * * * * * * * * * * * * * * * * */
 /******************************************************************************/
 // Function that generate random number
 // this will return a number beteween 0 and (exclusive) range argument
+// Luiz
 function rand(range){
     return Math.floor(Math.random()* range);
 }
-//test
-
-//console.log(rand(5));
-
-
-
-//console.log(rand(5));
-
-
-//console.log(rand(5));
-
 /******************************************************************************/
 /* * * * * * * * * * * * * * * * startTimer() * * * * * * * * * * * * * * * * */
 /******************************************************************************/
 // function to start timer that user will have to answer
+// Luiz
 function startTimer(callback, seconds = 1) {
     //starting the time Interval and saving its ID to timeID vairbale
     timeId = setInterval(callback, 1000 * seconds);
@@ -164,20 +144,13 @@ function startTimer(callback, seconds = 1) {
 /* * * * * * * * * * * * * * * * * stop() * * * * * * * * * * * * * * * * * */
 /****************************************************************************/
 // function to stop timer
+// Luiz
 function stop(){
     clearInterval(timeId);
 }
-
 /*******************************************************************************/
 /* * * * * * * * * * * * * * * * updateTimer() * * * * * * * * * * * * * * * * */
 /*******************************************************************************/
-// function updateTimer() {
-// Set Counter to always show two digits
-// Display Updated conter
-// Stop if counter reachs zero
-// Make it red color if counter bellow 10
-// Update Counter
-//}
 function updateTimer(){
     // makes sure to leave 2 digits for seconds even if under 2 digits
     timerCounter = ("0"+timerCounter).slice(-2);
@@ -196,8 +169,6 @@ function updateTimer(){
     // make counter go down by one each iteration 
     timerCounter--;
 }
-
-
 /***************************************************************************/
 /* * * * * * * * * * * * * * * showAnwser() * * * * * * * * * * * * * * * */
 /***************************************************************************/
@@ -240,8 +211,6 @@ function showAnwser(isCorrect) {
             break;
     }
 }
-
-
 /* ********************************************************************** */
 /* * * * * * * * * * * * * * * * updateView() * * * * * * * * * * * * * * */
 /* ********************************************************************** */
@@ -255,12 +224,25 @@ function updateView() {
     // Check for Game Over
     if (arrayKey.length < 1) {
         stop();
+        // Display number of guesses questions
         setText("#correctAnswersCount", gameInfo.toatlWin);
+        // Display number of missed questions
         setText("#wrongAnswersCount", gameInfo.totalLost);
+        // Display number of not answered questions
         setText("#noAnswersCount", gameInfo.notAnswered);
+        // remove #questionsContainer
         mkInvisible("#questionsContainer");
+        // display #gameOverContainer
         mkVisible("#gameOverContainer");
-        mkVisible(".score-card");//TODO:
+        // display .score-card
+        mkVisible(".score-card");
+        // Set new score
+        userCity.data.score = userCity.data.score
+        + gameInfo.toatlWin 
+        - gameInfo.totalLost 
+        - gameInfo.notAnswered;
+        // update score on firebase
+        updateDatabaseScores(userCity.country,userCity.zip,userCity.data);
 
         return;
     }
@@ -270,7 +252,7 @@ function updateView() {
     startTimer(updateTimer, 1);
     // Get a rand key ussing splice (splice return a Array)
     let _key = arrayKey.splice(rand(arrayKey.length), 1);
-    // Get randon object from questionsObjects using splice to void erpetitive questions
+    // Get randon object from questionsObjects using splice to void repetitive questions
     let _obj = questionsObjects[_key[0]];
     // Get string question
     let _question = _obj.question;
@@ -298,14 +280,19 @@ function updateView() {
     mkVisible("#question");
     mkVisible("#btnColumn");
 }
-
-
+/* *********************************************************************** */
+/* * * * * * * * * * * * * updateDatabaseScores  * * * * * * * * * * * * * */
+/* *********************************************************************** */
+// Adriano Apr 19
+// Function to update score and or add city to firebase
+function updateDatabaseScores(country, zipCode, obj) {
+    myDatabase.ref(`${country}/${zipCode}`).update(obj);
+}
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /* * * * * * * * * * * * * * onStartButtonClick() * * * * * * * * * * * * * * */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // callback used on start button event listener
-
-//function onStartButtonClick() {
+// Luiz
 function startButtonClick() {
     // Get start button element 
     var btn = document.querySelector("#startButton");
@@ -320,9 +307,6 @@ function startButtonClick() {
         mkVisible("#questionsContainer");
     });
 };
-
-//}
-
 /* ********************************************************************** */
 /* * * * * * * * * * * * getNumberWithOrdinal() * * * * * * * * * * * * * */
 /* ********************************************************************** */
@@ -362,19 +346,27 @@ function updateScoresView(country) {
             let tableRow = document.createElement("tr");
             // create table datas elements and add data to it
             let tableDataPosition = document.createElement("td");
+            // set possition
             tableDataPosition.innerHTML = getNumberWithOrdinal(counter--);
+            // append child to table row <tr>
             tableRow.appendChild(tableDataPosition);
+            // create table data <td>
             let tableDataCity = document.createElement("td");
+            // set city name
             tableDataCity.innerHTML = data.val().city;
+            // append child to table row <tr>
             tableRow.appendChild(tableDataCity);
+            // create create table data <td>
             let tableDataScore = document.createElement("td");
+            // set score
             tableDataScore.innerHTML = data.val().score;
+            // append child to table row <tr>
             tableRow.appendChild(tableDataScore);
+            // append child to parent
             parent.prepend(tableRow);
         });
     });
 }
-
 /* ********************************************************************** */
 /* * * * * * * * * * * * * * getGeoLocation() * * * * * * * * * * * * * * */
 /* ********************************************************************** */
@@ -412,17 +404,20 @@ function getCity(userPosition) {
         .then((result) => result.locations[0])
         // set city and state
         .then((location) => {
-            let currentCity = `${location.adminArea5}, ${location.adminArea3}`;
+            userCity.data.city = `${location.adminArea5}, ${location.adminArea3}`;
+            // let currentCity = `${location.adminArea5}, ${location.adminArea3}`;
             // get user postal code
-            userPostalCode = location.postalCode;
-            // get users country
-            userCountry = location.adminArea1;
+            userCity.zip = location.postalCode;
+            // userPostalCode = location.postalCode;
+            // get users country 
+            userCity.country = location.adminArea1;
+            // userCountry = location.adminArea1;
             // Get current city's score bt calling getCurrentCityScore()
-            getCurrentCityScore(userCountry, userPostalCode);
+            getCurrentCityScore(userCity.country, userCity.zip);
 
-            updateScoresView(userCountry);
+            updateScoresView(userCity.country);
             // TODO: use function setText(selector)
-            document.querySelector('.footer h6').innerHTML = currentCity;
+            document.querySelector('.footer h6').innerHTML = userCity.data.city;
             // document.querySelector('#map').setAttribute(`src`, location.mapUrl);
         });
 }
@@ -436,25 +431,22 @@ function getCurrentCityScore(country, zipCode) {
     // get firbase snapshot  
     myDatabase.ref(`${country}/`).on(`value`, function (snapshot) {
         // and get the score on database for current city
-       userCityScore = snapshot.val()[zipCode].score;
+        // userCityScore = snapshot.val()[zipCode].score;
+        userCity.data.score = snapshot.val()[zipCode].score;
+
         // debugging
-       console.log(`%cuserCityScore : ${userCityScore}`, `background-color: cyan;`);
+       console.log(`%cuserCityScore : ${userCity.data.score}`, `background-color: cyan;`);
     },
     // check for error 
     function (error) {
         console.log("Error: " + error.code);
     });
 }
-
-
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /* * * * * * * * * * * * * * onAnswerClick() * * * * * * * * * * * * * * * */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // Method to handle event wen user click in any answer
-// function onAnswerClick(event) {
-// Get text from clicked button
-// check answer status
-//}
+// Luiz
 function onAnswerClick(event){
     var clickedAnswer = event.target.innerHTML;
     console.log(clickedAnswer);
@@ -462,7 +454,6 @@ function onAnswerClick(event){
     showAnwser(clickedAnswer == correctAnswer);
 
 }
-
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /* * * * * * * * * * * * * * onReloadClick() * * * * * * * * * * * * * * * */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
