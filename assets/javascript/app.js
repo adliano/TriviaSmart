@@ -36,6 +36,9 @@ firebase.initializeApp(config);
 let myDatabase = firebase.database();
 ///////////////////\\\\\\\\\\\\\\\\\\\\\
 
+let gameInfo = { toatlWin: 0, totalLost: 0, totalRounds: 0, notAnswered: 0 };
+
+let correctAnswer; // Adriano
 
 /******************************************************************************/
 /* * * * * * * * * * * * * * * * getQuestions() * * * * * * * * * * * * * * * */
@@ -195,27 +198,45 @@ function updateTimer(){
 /***************************************************************************/
 /* * * * * * * * * * * * * * * showAnwser() * * * * * * * * * * * * * * * */
 /***************************************************************************/
-// function showAnwser(isCorrect) {
-    function showAnwser(isCorrect){
-
+// Adriano
+function showAnwser(isCorrect) {
+    // Stop timer
+    stop();
+    // Let user see the result for 5 seconds
+    startTimer(updateView, 5);
+    // remove timerHearder, question and btnColumn from view
+    mkInvisible("#timerHearder");
+    mkInvisible("#btnColumn");
+    //display displayGIF
+    mkVisible("#displayGIF");
+    // Get Element of img, there is only one element child so we most use [0]
+    let _imgElement = document.querySelector("#displayGIF").children[0];
+    // Check if user answer correct,wrong or timeout
+    switch (isCorrect) {
+        case true: // User answered correct
+            // Update toatlWin
+            gameInfo.toatlWin++;
+            // set text for answer status
+            setText("#question", 'You Got IT Right!');
+            // add the src to img
+            _imgElement.setAttribute("src", correctAnswerGifURL);
+            break;
+        case false: // User Missed
+            // update totalLost
+            gameInfo.totalLost++;
+            // set text for answer status
+            setText("#question", `Nope! Right Answer is ${correctAnswer}`);
+            _imgElement.setAttribute("src", wrongAnswerGifURL);
+            break;
+        default: // Not Answer, Time out
+            // Update notAnswered counter
+            gameInfo.notAnswered++;
+            // set text for answer status
+            setText("#question", `Time out! Right Answer is ${correctAnswer}`);
+            _imgElement.setAttribute("src", wrongAnswerGifURL);
+            break;
     }
-// Let user see the result for 5 seconds
-// remove timerHearder, question and btnColumn from view
-//display displayGIF
-// Get Element of img, there is only one element child so we most use [0]
-// Check if user answer correct,wrong or timeout
-// User answered correct
-// Update toatlWin
-// set text for answer status
-// add the src to img
-// User Missed
-// update totalLost
-// set text for answer status
-// Not Answer, Time out
-// Update notAnswered counter
-// set text for answer status
-//}
-//
+}
 
 
 /* ********************************************************************** */
@@ -415,6 +436,8 @@ function getCurrentCityScore(country, zipCode) {
 function onAnswerClick(event){
     var clickedAnswer = event.target.innerHTML;
     console.log(clickedAnswer);
+
+    showAnwser(clickedAnswer == correctAnswer);
 
 }
 
