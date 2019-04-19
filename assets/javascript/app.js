@@ -137,7 +137,7 @@ function rand(range){
 }
 //test
 
-//console.log(rand(5));
+console.log(rand(5));
 
 
 
@@ -206,8 +206,8 @@ function startTimer(callback, seconds = 1) {
 // to compare with user answer
 // function updateView() {
 function updateView() {
-    console.log("view has been updated duuuude");
-}
+    
+
 // Check for Game Over
 // stop timer
 // update view
@@ -227,7 +227,8 @@ function updateView() {
 // Reset counter
 // timerCounter = 30;
 //Start timer and update each 1 second
-//}
+console.log("view has been updated duuuude");
+}
 
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
