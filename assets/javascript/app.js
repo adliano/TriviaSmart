@@ -343,43 +343,34 @@ function getNumberWithOrdinal(number) {
 // this willl get the 10 highest scores from firebase of user's country
 // this function will be called from function getCityInfo() 
 function updateScoresView(country) {
-    // counter used to set ordinal
-    let counter = 0;
-    /*****************/
-    /* printScores() */
-    /*****************/
-    // Function using recursion to display 10 tops scores on view 
-    function printScores(scorreArray) {
-        // check if array still have data
-        if (scorreArray.length > 0) {
-            // pop item from array
-            let item = scorreArray.pop();
-            // debug \\
-            console.log(`%c ${getNumberWithOrdinal(++counter)} ${item}`, `color:white; background-color : blue;`);
-            //
-            // TODO: display score on view 
-            //
-            // print next score
-            printScores(scorreArray);
-        }
-    }
-    // get data from '${country}/', order by score and get the 10 last objects
+    // get parent element to append table row
+    let parent = document.querySelector(".table-body");
+    // Firebase on value change listener
     myDatabase.ref(`${country}/`).orderByChild('score').limitToLast(10).on("value", function (snapshot) {
-        // create a stack to place data
-        // remember stack is last in, first out data structure
-        let stack = [];
+        // clear parrent
+        parent.innerHTML = "";
+        // create a counter
+        let counter = snapshot.numChildren();
         // debug
-        console.log(`snapshot length : ${snapshot.numChildren()}`); 
+        console.dir(counter);
         // debug
-        console.dir(snapshot.val()); 
-        // iterate through object 
+        console.dir(snapshot.val());
+        // loop trough object
         snapshot.forEach(function (data) {
-            // push data in format cityName cityScore to stack
-            ///// TODO: Display format should be done here \\\\\
-            stack.push(`${data.val().city} ${data.val().score}`);
+            // create a table row to append table data
+            let tableRow = document.createElement("tr");
+            // create table datas elements and add data to it
+            let tableDataPosition = document.createElement("td");
+            tableDataPosition.innerHTML = getNumberWithOrdinal(counter--);
+            tableRow.appendChild(tableDataPosition);
+            let tableDataCity = document.createElement("td");
+            tableDataCity.innerHTML = data.val().city;
+            tableRow.appendChild(tableDataCity);
+            let tableDataScore = document.createElement("td");
+            tableDataScore.innerHTML = data.val().score;
+            tableRow.appendChild(tableDataScore);
+            parent.prepend(tableRow);
         });
-        // call function printScores() to display scores in Ascending order
-        printScores(stack);
     });
 }
 
@@ -427,6 +418,8 @@ function getCity(userPosition) {
             userCountry = location.adminArea1;
             // Get current city's score bt calling getCurrentCityScore()
             getCurrentCityScore(userCountry, userPostalCode);
+
+            updateScoresView(userCountry);
             // TODO: use function setText(selector)
             document.querySelector('.footer h6').innerHTML = currentCity;
             // document.querySelector('#map').setAttribute(`src`, location.mapUrl);
