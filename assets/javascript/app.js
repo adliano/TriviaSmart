@@ -260,7 +260,7 @@ function updateView() {
         setText("#noAnswersCount", gameInfo.notAnswered);
         mkInvisible("#questionsContainer");
         mkVisible("#gameOverContainer");
-        mkVisible(".score-card");//TODO:
+        mkVisible("#scoreContainer");//TODO:
 
         return;
     }
@@ -318,6 +318,7 @@ function startButtonClick() {
         //get rid of container holding button 
         mkInvisible("#containerStart");
         mkVisible("#questionsContainer");
+        mkInvisible("#scoreContainer")
     });
 };
 
