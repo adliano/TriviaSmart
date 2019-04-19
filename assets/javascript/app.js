@@ -47,6 +47,7 @@ var arrayKey; // Luiz
 /******************************************************************************/
 // Function to get 10 questions from API and save on JSON object
 // Get questions from API using promisses
+function getQuestions(){
 var queryUrl = "https://opentdb.com/api.php?amount=1&category=26&difficulty=easy&type=multiple";
 // Save the object
 fetch(queryUrl)
@@ -64,7 +65,7 @@ fetch(queryUrl)
     // Update view after data arrive
     .then(()=> updateView());
     
- 
+} 
 // Array with Questions keys
 function arrayGrab() {
     arrayKey = Object.keys(questionsObjects);
@@ -467,11 +468,21 @@ function onAnswerClick(event){
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // Method to handle the game reload
 // function onReloadClick(event) {
-// update view
 // reset initial variables that hold scores
 // Get start button element 
 // upload questions
 //}
+function onReloadClick(event){
+    mkInvisible("#gameOverContainer");
+    for (let key of Object.keys(questionsObjects)){
+        gameInfo[key]=0;
+    };
+    mkVisible("#containerStart");
+    let _btn = document.querySelector("#startButton");
+    _btn.disabled= false;
+    getQuestions();
+}
+document.querySelector("#reloadButton").addEventListener("click", onReloadClick);
 
 /////////////////////////////////////////////////////////////////////////////////////
 getGeoLocation();
@@ -480,5 +491,5 @@ getGeoLocation();
 // Add the onclick listener to answers buttons
 document.querySelector("#btnColumn").addEventListener("click", onAnswerClick);
 //
-// getQuestions("easy");
+getQuestions();
 
