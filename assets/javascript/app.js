@@ -71,9 +71,9 @@ function getQuestions() {
             arrayGrab();
         })
         // Enable Start Button after data ia loaded
-        .then(() => startButtonClick())
+        .then(() => startButtonClick());
         // Update view after data arrive
-        .then(() => updateView());
+        //.then(() => updateView());
 }
 // Array with Questions keys Luiz
 function arrayGrab() {
@@ -313,6 +313,8 @@ function startButtonClick() {
     btn.disabled = false;
     // Add the event listner
     btn.addEventListener("click", function () {
+        // update view
+        updateView();
         //console log if button was clicked        
         //console.log("button clickeddddd son");
         //get rid of container holding button 
@@ -343,7 +345,7 @@ function getNumberWithOrdinal(number) {
 // event listner trigged on any value change,
 // this willl get the 10 highest scores from firebase of user's country
 // this function will be called from function getCityInfo() 
-function updateScoresView(country) {
+function updateScoresView(country) {    
     // get parent element to append table row
     let parent = document.querySelector(".table-body");
     // Firebase on value change listener

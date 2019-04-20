@@ -32,7 +32,6 @@ https://colorhunt.co/palette/142059
     color: #000000;
     text-shadow: 0 2px 0 red;
 }
-
 /* /////////////////////////////////////////////////// */
 /* ///////////////////// Body ///////////////////// */
 body {
@@ -76,8 +75,8 @@ button ,.pushy__btn {
     right: 10px;
     bottom: 2px;
     width: 25%;
-    font-family: 'Fredoka One',cursive;
-    font-size: 2rem;
+    font-family: 'Bungee Shade',cursive;
+    font-size: 1.5rem;
     text-align: center;
 }
 /* /////////////////////////////////////////////////// */
