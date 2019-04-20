@@ -1,47 +1,97 @@
-/* Google fontes used */
-
-/* 
+/* Google fontes used
 font-family: 'Vesper Libre', serif;
 font-family: 'Bungee Shade', cursive;
 font-family: 'Fredoka One', cursive;
 font-family: 'Luckiest Guy', cursive; 
 font-family: 'Acme', sans-serif;
-
-
 colors
 https://colorhunt.co/palette/142059
-
 #ffc15e rgb(255, 193, 94, 0.75)
 #8158fc
 #692db7
 #34314f
-
 */
-
+/* **************** Alphabetic Order *************** */
+/* ///////////////////// allDoneHeader ///////////////////// */
+.allDoneHeader {
+    position: relative;
+    font-size: 5rem;
+    font-family: 'Luckiest Guy',
+        cursive;
+    color: #34314f;
+}
+.allDoneHeader span {
+    position: absolute;
+    font-size: 5rem;
+    font-family: 'Luckiest Guy', cursive;
+    color: #692db7;
+    -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 1)), color-stop(50%, rgba(0, 0, 0, .5)), to(rgba(0, 0, 0, 1)));
+}
+.allDoneHeader:after {
+    content: 'All Done!';
+    color: #000000;
+    text-shadow: 0 2px 0 red;
+}
+/* /////////////////////////////////////////////////// */
+/* ///////////////////// Body ///////////////////// */
 body {
     background-image: url('../images/background.jpg');
     background-size: cover;
     font-family: 'Vesper Libre', serif;
 }
-
+/* /////////////////////////////////////////////////// */
+/* ///////////////////// container ///////////////////// */
+.bg-container {
+    min-height: 250px;
+    min-width: 250px;
+    background-color: rgb(255, 193, 94, 0.75);
+}
+/* ///////////////////// Buttons ///////////////////// */
 button ,.pushy__btn {
     font-family: 'Luckiest Guy', cursive;
     font-size: 2rem;
     background-color: #692db7;
     color: white;
 }
-
 .pushy__btn:hover {
     background-color: #8158fc;
 }
-
+/* /////////////////////////////////////////////////// */
+/* /////////////////////// Score Card /////////////////////// */
+.card-header {
+    background-color: #692db7;
+    font-family: 'Luckiest Guy', cursive;
+}
+.score-card {
+    background-color: rgba(255, 255, 200, 0.15);
+    color: white;
+    font-size: 1rem;
+}
+/* ////////////////////////////////////////////////////////////// */
+/* Style for footer that will show current city Adriano Apr 14 2019 */
+/* ///////////////////// footer //////////////////// */
+.footer h6 {
+    position: fixed;
+    right: 10px;
+    bottom: 2px;
+    width: 25%;
+    font-family: 'Bungee Shade',cursive;
+    font-size: 1.5rem;
+    text-align: center;
+}
+/* /////////////////////////////////////////////////// */
+/* //////////////////// invisible //////////////////// */
+.invisible {
+    display: none;
+}
+/* /////////////////////////////////////////////////// */
+/* ///////////////////// startHeader header //////////////////// */
 .startHeader {
     position: relative;
     font-size: 5rem;
     font-family: 'Luckiest Guy', cursive;
     color: #34314f;
 }
-
 .startHeader span {
     position: absolute;
     font-size: 5rem;
@@ -49,65 +99,48 @@ button ,.pushy__btn {
     color: #692db7;
     -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 1)), color-stop(50%, rgba(0, 0, 0, .5)), to(rgba(0, 0, 0, 1)));
 }
-
 .startHeader:after {
     content: 'Smart Trivia';
     color: #000000;
     text-shadow: 0 2px 0 red;
 
 }
-
-.allDoneHeader {
-    position: relative;
-    font-size: 5rem;
-    font-family: 'Luckiest Guy',
-    cursive;
-    color: #34314f;
+/* ///////////////////////////////////////////////////////////////// */
+/* /////////////////////// Media queries  /////////////////////// */
+@media only screen and (max-width: 768px) {
+    .startHeader,
+    .allDoneHeader {
+        font-size: 4rem;
+    }
+    .startHeader span,
+    .allDoneHeader span {
+     font-size: 4rem;
+    }
 }
+@media only screen and (max-width: 540px) {
+    .startHeader, .allDoneHeader {
+        font-size: 3rem;
+    }
 
-.allDoneHeader span {
-    position: absolute;
-    font-size: 5rem;
-    font-family: 'Luckiest Guy',cursive;
-    color: #692db7;
-    -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 1)), color-stop(50%, rgba(0, 0, 0, .5)), to(rgba(0, 0, 0, 1)));
+    .startHeader span, .allDoneHeader span {
+        font-size: 3rem;
+    }
+    .pushy__btn {
+        font-size: 1rem;
+    }
 }
+@media only screen and (max-width: 430px) {
+    .startHeader,
+    .allDoneHeader {
+        font-size: 2rem;
+    }
 
-.allDoneHeader:after {
-    content: 'All Done!';
-    color: #000000;
-    text-shadow: 0 2px 0 red;
+    .startHeader span,
+    .allDoneHeader span {
+        font-size: 2rem;
+    }
+    .pushy__btn {
+        font-size: .75rem;
+    }
 }
-
-.bg-container {
-    min-height: 250px;
-    min-width: 250px;
-    background-color: rgb(255, 193, 94, 0.75);
-}
-
-/* Style for footer that will show current city Adriano Apr 14 2019 */
-.footer h6{
-    position: fixed;
-    right: 10px;
-    bottom: 2px;
-    width: 25%;
-    font-size: 2rem;
-    text-align: center;
-}
-
-.invisible {
-    display: none;
-}
-
-/* //////////////// Style for Card With Scores /////////////////////// */
-.card-header{
-    background-color: #692db7;
-    font-family: 'Luckiest Guy',cursive;
-}
-
-.score-card{
-    background-color: rgba(255, 255, 200, 0.15);
-    color: white;
-    font-size: 1rem;
-}
-/* //////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////// */
