@@ -7,17 +7,16 @@ var timeId;
 // variable to save the user city's current score (Adriano Apr 15 2019)
 // let userCityScore;
 let userCity = {
-    zip : 0,
-    country : "",
+    zip: 0,
+    country: "",
     data: {
         city: "",
         score: 0,
-    },   
+    },
 }
-
 // Save interval ID to be able to stop when need it
 
-// Time given to user to answer 30 seconds
+// Time given to user to answer 20 seconds
 var timerCounter;
 // Location API URL  Adriano Alves Apr 14 2019
 // API used to get info about users current city, country and zip code
@@ -37,14 +36,20 @@ let config = {
     storageBucket: "triviasmart-c21fb.appspot.com",
     messagingSenderId: "142508179498"
 };
+// init firebase with config json
 firebase.initializeApp(config);
+// get firebase databse 
 let myDatabase = firebase.database();
-
-
-let gameInfo = { toatlWin: 0, totalLost: 0, totalRounds: 0, notAnswered: 0 };
-
+// game info
+let gameInfo = {
+    toatlWin: 0,
+    totalLost: 0,
+    totalRounds: 0,
+    notAnswered: 0
+};
+// variable to hold correct answer
 let correctAnswer; // Adriano
-
+// array with keys
 var arrayKey; // Luiz
 
 /******************************************************************************/
@@ -52,31 +57,29 @@ var arrayKey; // Luiz
 /******************************************************************************/
 // Function to get 10 questions from API and save on JSON object
 // Get questions from API using promisses
-function getQuestions(){
-var queryUrl = "https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple";
-// Save the object
-fetch(queryUrl)
-    //translate into json
-    .then((response) => response.json())
-    // do something with the promise
-    .then((result) => {
-        console.dir(result.results);
-        questionsObjects = result.results;
-        arrayGrab();
-    })
-
-    // Enable Start Button after data ia loaded
-    .then(()=> startButtonClick() )
-    // Update view after data arrive
-    .then(()=> updateView());
-    
-} 
+function getQuestions() {
+    var queryUrl = "https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple";
+    // var queryUrl = "https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple"
+    // Save the object
+    fetch(queryUrl)
+        //translate into json
+        .then((response) => response.json())
+        // do something with the promise
+        .then((result) => {
+            //console.dir(result.results);
+            questionsObjects = result.results;
+            arrayGrab();
+        })
+        // Enable Start Button after data ia loaded
+        .then(() => startButtonClick())
+        // Update view after data arrive
+        .then(() => updateView());
+}
 // Array with Questions keys Luiz
 function arrayGrab() {
     arrayKey = Object.keys(questionsObjects);
-    console.dir(arrayKey);
+    // console.dir(arrayKey);
 }
-
 /*****************************************************************************/
 /* * * * * * * * * * * * * * getCorrectAnswerGIF() * * * * * * * * * * * * * */
 /*****************************************************************************/
@@ -93,7 +96,7 @@ function displayGIF(search) {
         var ourGifs = JSON.parse(correctAnsGifs.responseText);
         gifUrl = ourGifs.data.images.fixed_width.url;
         //console.dir dislays in the console
-        console.dir(gifUrl);
+        //console.dir(gifUrl);
     }
     //sending the request to the source url 
     correctAnsGifs.send();
@@ -119,7 +122,7 @@ function mkInvisible(selector) {
 /*******************************************************************************/
 // function to set text content on element, argument will be selector and text to be set
 // Luiz
-function setText(selector,text){
+function setText(selector, text) {
     document.querySelector(selector).innerHTML = text;
 }
 /******************************************************************************/
@@ -128,8 +131,8 @@ function setText(selector,text){
 // Function that generate random number
 // this will return a number beteween 0 and (exclusive) range argument
 // Luiz
-function rand(range){
-    return Math.floor(Math.random()* range);
+function rand(range) {
+    return Math.floor(Math.random() * range);
 }
 /******************************************************************************/
 /* * * * * * * * * * * * * * * * startTimer() * * * * * * * * * * * * * * * * */
@@ -145,25 +148,24 @@ function startTimer(callback, seconds = 1) {
 /****************************************************************************/
 // function to stop timer
 // Luiz
-function stop(){
+function stop() {
     clearInterval(timeId);
 }
 /*******************************************************************************/
 /* * * * * * * * * * * * * * * * updateTimer() * * * * * * * * * * * * * * * * */
 /*******************************************************************************/
-function updateTimer(){
+function updateTimer() {
     // makes sure to leave 2 digits for seconds even if under 2 digits
-    timerCounter = ("0"+timerCounter).slice(-2);
+    timerCounter = ("0" + timerCounter).slice(-2);
     //changes text of timer with timercounter
     setText("#timerID", timerCounter);
     //if timer counter is equal to zero, stop timer and show answer also remove red color for next itiration
-    if(timerCounter == 0){
+    if (timerCounter == 0) {
         stop();
         showAnwser();
-        document.querySelector("#timerID").classList.remove("text-danger");
     }
     // if counter is less than 10, change it to red color
-    else if(timerCounter < 10){
+    else if (timerCounter < 10) {
         document.querySelector("#timerID").classList.add("text-danger");
     }
     // make counter go down by one each iteration 
@@ -223,7 +225,6 @@ function updateView() {
     stop();
     // Check for Game Over
     if (arrayKey.length < 1) {
-        stop();
         // Display number of guesses questions
         setText("#correctAnswersCount", gameInfo.toatlWin);
         // Display number of missed questions
@@ -234,23 +235,23 @@ function updateView() {
         mkInvisible("#questionsContainer");
         // display #gameOverContainer
         mkVisible("#gameOverContainer");
-
         // display .score-card
         mkVisible(".score-card");
         // Set new score
-        userCity.data.score = userCity.data.score
-        + gameInfo.toatlWin 
-        - gameInfo.totalLost 
-        - gameInfo.notAnswered;
+        userCity.data.score = userCity.data.score // current score (database)
+            +
+            gameInfo.toatlWin // + number of right guesses
+            -
+            gameInfo.totalLost // - number of incorrect answers
+            -
+            gameInfo.notAnswered; // - number of not answered (time out)
+        // check if user got negative score and set socer to zero
+        userCity.data.score = (userCity.data.score < 0) ? 0 : userCity.data.score;
         // update score on firebase
-        updateDatabaseScores(userCity.country,userCity.zip,userCity.data);
-
+        updateDatabaseScores(userCity.country, userCity.zip, userCity.data);
+        // get out here
         return;
     }
-    // Reset counter
-    timerCounter = 20;
-    //Start timer and update each 1 second
-    startTimer(updateTimer, 1);
     // Get a rand key ussing splice (splice return a Array)
     let _key = arrayKey.splice(rand(arrayKey.length), 1);
     // Get randon object from questionsObjects using splice to void repetitive questions
@@ -267,6 +268,7 @@ function updateView() {
     let _questionButtons = document.querySelector("#btnColumn").children
     // Random place correct and incorrect answer on the buttons
     for (let _btn of _questionButtons) {
+        // randomly set questions to buttons using splice
         let _question = _obj.incorrect_answers.splice(rand(_obj.incorrect_answers.length), 1)[0];
         _btn.innerHTML = _question;
     }
@@ -276,9 +278,18 @@ function updateView() {
     displayGIF(`wrong answer ${correctAnswer}`);
     // remove gif animation displayGIF
     mkInvisible("#displayGIF");
+    // Reset counter
+    timerCounter = 20;
+    setText("#timerID", timerCounter);
+    // remove red color for time less than 10 seconds
+    document.querySelector("#timerID").classList.remove("text-danger");
+    //Start timer and update each 1 second
+    startTimer(updateTimer, 1);
     // display timerHearder, question and btnColumn
     mkVisible("#timerHearder");
+    // display question
     mkVisible("#question");
+    // display button with answers
     mkVisible("#btnColumn");
 }
 /* *********************************************************************** */
@@ -287,6 +298,7 @@ function updateView() {
 // Adriano Apr 19
 // Function to update score and or add city to firebase
 function updateDatabaseScores(country, zipCode, obj) {
+    // update firebase ref to country snd zipcode
     myDatabase.ref(`${country}/${zipCode}`).update(obj);
 }
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -302,11 +314,13 @@ function startButtonClick() {
     // Add the event listner
     btn.addEventListener("click", function () {
         //console log if button was clicked        
-        console.log("button clickeddddd son");
+        //console.log("button clickeddddd son");
         //get rid of container holding button 
         mkInvisible("#containerStart");
+        // display questions
         mkVisible("#questionsContainer");
-        mkInvisible("#scoreContainer")
+        // remove scores card
+        mkInvisible(".score-card");
     });
 };
 /* ********************************************************************** */
@@ -339,9 +353,9 @@ function updateScoresView(country) {
         // create a counter
         let counter = snapshot.numChildren();
         // debug
-        console.dir(counter);
+        //console.dir(counter);
         // debug
-        console.dir(snapshot.val());
+        //console.dir(snapshot.val());
         // loop trough object
         snapshot.forEach(function (data) {
             // create a table row to append table data
@@ -416,10 +430,10 @@ function getCity(userPosition) {
             // userCountry = location.adminArea1;
             // Get current city's score bt calling getCurrentCityScore()
             getCurrentCityScore(userCity.country, userCity.zip);
-
+            // update scores on view
             updateScoresView(userCity.country);
-            // TODO: use function setText(selector)
-            document.querySelector('.footer h6').innerHTML = userCity.data.city;
+            // display user current city
+            setText('.footer h6', userCity.data.city);
             // document.querySelector('#map').setAttribute(`src`, location.mapUrl);
         });
 }
@@ -432,26 +446,25 @@ function getCity(userPosition) {
 function getCurrentCityScore(country, zipCode) {
     // get firbase snapshot  
     myDatabase.ref(`${country}/`).on(`value`, function (snapshot) {
-        // and get the score on database for current city
-        // userCityScore = snapshot.val()[zipCode].score;
-        userCity.data.score = snapshot.val()[zipCode].score;
-
-        // debugging
-       console.log(`%cuserCityScore : ${userCity.data.score}`, `background-color: cyan;`);
-    },
-    // check for error 
-    function (error) {
-        console.log("Error: " + error.code);
-    });
+            // and get the score on database for current city
+            // userCityScore = snapshot.val()[zipCode].score;
+            userCity.data.score = snapshot.val()[zipCode].score;
+            // debugging
+            // console.log(`%cuserCityScore : ${userCity.data.score}`, `background-color: cyan;`);
+        },
+        // check for error 
+        function (error) {
+            console.error("Error: " + error.code);
+        });
 }
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /* * * * * * * * * * * * * * onAnswerClick() * * * * * * * * * * * * * * * */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // Method to handle event wen user click in any answer
 // Luiz
-function onAnswerClick(event){
+function onAnswerClick(event) {
     var clickedAnswer = event.target.innerHTML;
-    console.log(clickedAnswer);
+    //console.log(clickedAnswer);
 
     showAnwser(clickedAnswer == correctAnswer);
 
@@ -459,30 +472,29 @@ function onAnswerClick(event){
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /* * * * * * * * * * * * * * onReloadClick() * * * * * * * * * * * * * * * */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+// Luiz
 // Method to handle the game reload
-// function onReloadClick(event) {
-// reset initial variables that hold scores
-// Get start button element 
-// upload questions
-//}
-function onReloadClick(event){
+function onReloadClick() {
+    // reset counters
+    gameInfo = {
+        toatlWin: 0,
+        totalLost: 0,
+        totalRounds: 0,
+        notAnswered: 0
+    };
     mkInvisible("#gameOverContainer");
-    for (let key of Object.keys(questionsObjects)){
-        gameInfo[key]=0;
+    for (let key of Object.keys(questionsObjects)) {
+        gameInfo[key] = 0;
     };
     mkVisible("#containerStart");
     let _btn = document.querySelector("#startButton");
-    _btn.disabled= false;
+    _btn.disabled = false;
     getQuestions();
 }
-document.querySelector("#reloadButton").addEventListener("click", onReloadClick);
-
 /////////////////////////////////////////////////////////////////////////////////////
 getGeoLocation();
-//document.querySelector("#reloadButton").addEventListener("click", onReloadClick);
-
+document.querySelector("#reloadButton").addEventListener("click", onReloadClick);
 // Add the onclick listener to answers buttons
 document.querySelector("#btnColumn").addEventListener("click", onAnswerClick);
 //
 getQuestions();
-
