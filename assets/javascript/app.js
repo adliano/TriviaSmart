@@ -20,7 +20,7 @@ let userCity = {
 var timerCounter;
 // Location API URL  Adriano Alves Apr 14 2019
 // API used to get info about users current city, country and zip code
-const LOCATION_API_URL = `http://open.mapquestapi.com/geocoding/v1/reverse?`
+const LOCATION_API_URL = `https://open.mapquestapi.com/geocoding/v1/reverse?`
 // json used to create URL parameters
 let locationApiParams = {
     key: `PnXATGIJA1knu3AIiLfjICBBfLexttAQ`,
